@@ -52,7 +52,6 @@ public class Usuario extends Contacto {
         return "Usuario ->" +
                 " solicitud = " + solicitud +
                 ", departamento = " + departamento +
-                ", rol = " + rol +
-                '}';
+                ", rol = " + rol ;
     }
 }
