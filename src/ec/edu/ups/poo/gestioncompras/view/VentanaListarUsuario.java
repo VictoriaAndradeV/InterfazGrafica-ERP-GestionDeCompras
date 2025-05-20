@@ -1,4 +1,4 @@
-package ec.edu.ups.poo.gestioncompras.view
+package ec.edu.ups.poo.gestioncompras.view;
 
 import java.awt.*;
 import java.awt.event.*;
