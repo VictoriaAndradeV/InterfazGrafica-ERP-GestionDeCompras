@@ -219,10 +219,9 @@ public class Main {
         String numeroSolicitud = "SC" + String.format("%03d", contadorDeSolicitudes);
         contadorDeSolicitudes++;
 
-        // Crear nueva solicitud
+        // Crear nueva solicitud directamente (relación de agregación)
         GregorianCalendar fecha = new GregorianCalendar();
-        usuario.addSolicitud(fecha, Estado.SOLICITADA, numeroSolicitud);
-        SolicitudDeCompra nuevaSolicitud = usuario.getSolicitud();
+        SolicitudDeCompra nuevaSolicitud = new SolicitudDeCompra(usuario, fecha, Estado.SOLICITADA, numeroSolicitud);
 
         // Agregar productos
         boolean seguirAgregando = true;
@@ -243,7 +242,6 @@ public class Main {
             } else {
                 int cantidad = showConsole.pedirCantidadProducto();
 
-                // Llamar al metodo correcto
                 nuevaSolicitud.agregarDetalle(productoSeleccionado, cantidad, "Justificación no disponible");
                 System.out.println("Producto agregado correctamente a la solicitud.");
             }
@@ -254,7 +252,6 @@ public class Main {
         solicitudes.add(nuevaSolicitud);
         System.out.println("Solicitud registrada con éxito. número de solicitud: " + numeroSolicitud);
     }
-
 
     public static void calcularTotalSolicitud() {
         ShowConsole showConsole = new ShowConsole(productos);

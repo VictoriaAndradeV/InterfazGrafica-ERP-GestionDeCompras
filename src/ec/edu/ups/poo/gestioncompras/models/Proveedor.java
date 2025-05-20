@@ -15,10 +15,6 @@ public class Proveedor extends Contacto {
         this.productos = new ArrayList<>();
     }
 
-    public void agregarProducto(Producto producto) {
-        productos.add(producto);
-    }
-
     public List<Producto> getProductos() {
         return productos;
     }
@@ -45,10 +41,10 @@ public class Proveedor extends Contacto {
 
     @Override
     public String toString() {
-        return super.toString() + "\nProveedor -->" +
-                ", ruc = '" + ruc + '\'' +
-                ", Direccion = '" + direccion + '\''
-                ;
+        return "Proveedor{" +
+                "ruc='" + ruc + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", productos=" + productos +
+                '}';
     }
-
 }
