@@ -19,7 +19,7 @@ import ec.edu.ups.poo.gestioncompras.enums.Rol;
 
 public class ShowConsole {
 
-    private Scanner scanner;
+    private final Scanner scanner;
     private List<Producto> productos;
     public ShowConsole(List<Producto> productos) {
         this.scanner = new Scanner(System.in);

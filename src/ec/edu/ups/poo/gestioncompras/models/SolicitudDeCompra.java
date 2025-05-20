@@ -81,7 +81,6 @@ public class SolicitudDeCompra implements Calculable{
             total += dS.calcularTotal(); // Usa la interfaz aquí
         }
         return total;
-
     }
 
     public void aprobarEstado(Usuario evaluador, boolean aprobar) {
@@ -98,7 +97,6 @@ public class SolicitudDeCompra implements Calculable{
             System.out.println("No tiene permiso para aprobar el solicitud");
         }
     }
-
 
     @Override
     public String toString() {
