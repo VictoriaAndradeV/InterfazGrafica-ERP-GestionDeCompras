@@ -11,6 +11,7 @@ import ec.edu.ups.poo.gestioncompras.controller.BusquedaBinaria;
 import java.util.GregorianCalendar;
 import ec.edu.ups.poo.gestioncompras.enums.Rol;
 import ec.edu.ups.poo.gestioncompras.enums.UnidadDeMedida;
+import ec.edu.ups.poo.gestioncompras.view.VentanaPrincipal;
 
 public class Main {
     static Scanner scanner = new Scanner(System.in);
@@ -56,6 +57,7 @@ public class Main {
 
         solicitud.agregarDetalle(producto, 3, "Uso interno");
         solicitudes.add(solicitud);
+        new VentanaPrincipal(usuarios, proveedores, solicitudes, productos);
 
         boolean continuar = true;
 
