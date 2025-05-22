@@ -35,7 +35,6 @@ public class Usuario extends Contacto {
     public String toString() {
         return "Usuario ->" +
                 ", departamento = " + departamento +
-                ", rol = " + rol +
-                '}';
+                ", rol = " + rol ;
     }
 }
