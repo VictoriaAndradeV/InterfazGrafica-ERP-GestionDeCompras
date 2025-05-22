@@ -24,6 +24,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+
         //proveedores
         proveedores.add(new Proveedor("Proveedor Uno", "ApellidoUno", "P001", "proveedor1@mail.com", "1234567890", "RUC001", "Av. 10 de Agosto"));
 
@@ -44,6 +45,17 @@ public class Main {
         productos.add(new ProductoTecnologico("T001", "Laptop", "Laptop gama media", 600.0, UnidadDeMedida.MES, 24));
 
         ShowConsole showConsole = new ShowConsole(productos);
+
+        //solicitud
+        Usuario solicitante = usuarios.get(0); // Carlos
+        Producto producto = productos.get(0); // Manzanas
+
+        String numeroSolicitud = "SC" + String.format("%03d", contadorDeSolicitudes++);
+        GregorianCalendar fecha = new GregorianCalendar();
+        SolicitudDeCompra solicitud = new SolicitudDeCompra(solicitante, fecha, Estado.SOLICITADA, numeroSolicitud);
+
+        solicitud.agregarDetalle(producto, 3, "Uso interno");
+        solicitudes.add(solicitud);
 
         boolean continuar = true;
 
@@ -86,8 +98,8 @@ public class Main {
                     if (productos.isEmpty()) {
                         System.out.println("No existen productos registrados");
                     } else {
-                        for (Producto producto : productos) {
-                            System.out.println(producto);
+                        for (Producto p : productos) {
+                            System.out.println(p);
                         }
                     }
                     break;
@@ -258,15 +270,15 @@ public class Main {
         SolicitudDeCompra solicitudEncontrada = null;
         String numero = showConsole.pedirNumeroSolicitudCalcular();
 
-        SolicitudDeCompra soicitudEcontrada= null;
+        SolicitudDeCompra soicitudEncontrada= null;
         for(SolicitudDeCompra s : solicitudes) {
             if (s.getNumeroSolicitud().equalsIgnoreCase(numero)) {
-                soicitudEcontrada = s;
+                solicitudEncontrada = s;
                 break;
             }
         }
 
-        if (soicitudEcontrada == null) {
+        if (solicitudEncontrada == null) {
             showConsole.mostrarSolicitudNoEncontrada();
             return;
         }
@@ -294,7 +306,7 @@ public class Main {
 
         System.out.println("Ingrese los datos del jefe evaluador:");
         String nombreEvaluador = scanner.nextLine();
-        System.out.println("Ingrese el ID del jefe evaluador:");
+        System.out.println("Ingrese la cedula del jefe evaluador:");
         String idEvaluador = scanner.nextLine();
         Usuario evaluador = null;
 
