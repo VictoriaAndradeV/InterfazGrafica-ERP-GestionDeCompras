@@ -1,80 +1,74 @@
 package ec.edu.ups.poo.gestioncompras.view;
 
-import ec.edu.ups.poo.gestioncompras.models.DetalleSolicitud;
-import ec.edu.ups.poo.gestioncompras.models.Producto;
 import ec.edu.ups.poo.gestioncompras.models.SolicitudDeCompra;
-import java.awt.BorderLayout;
-import java.awt.Button;
-import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.Panel;
-import java.awt.TextArea;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import ec.edu.ups.poo.gestioncompras.models.DetalleSolicitud;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class VentanaListarSolicitudes extends Frame implements WindowListener {
-    private TextArea areaSolicitudes;
-    private Button botonCerrar;
+public class VentanaListarSolicitudes extends Frame {
+
+    private List<SolicitudDeCompra> solicitudes;
+    private Panel panelSolicitudes;
+    private SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
 
     public VentanaListarSolicitudes(List<SolicitudDeCompra> solicitudes) {
-        super("Lista de Solicitudes de Compra");
-        this.setLayout(new BorderLayout());
-        this.areaSolicitudes = new TextArea();
-        this.areaSolicitudes.setEditable(false);
-        this.add(this.areaSolicitudes, "Center");
-        Panel panelBoton = new Panel(new FlowLayout(2));
-        this.botonCerrar = new Button("Cerrar");
-        panelBoton.add(this.botonCerrar);
-        this.add(panelBoton, "South");
-        if (solicitudes.isEmpty()) {
-            this.areaSolicitudes.setText("No existen solicitudes registradas.");
-        } else {
-            StringBuilder texto = new StringBuilder();
+        super("Listado de Solicitudes");
+        this.solicitudes = solicitudes;
 
-            for(SolicitudDeCompra s : solicitudes) {
-                texto.append("Solicitud: ").append(s.getNumeroSolicitud()).append(" | Estado: ").append(s.getEstado()).append(" | Fecha: ").append(s.getFechaSolicitud().getTime().toString()).append("\nSolicitante: ").append(s.getUsuario().getNombre()).append(" ").append(s.getUsuario().getApellido()).append(" | Departamento: ").append(s.getUsuario().getDepartamento().getNombre()).append("\nProductos:\n");
+        setLayout(new BorderLayout());
+        setSize(900, 600);
+        setLocationRelativeTo(null);
 
-                for(DetalleSolicitud d : s.getDetalleSolicitud()) {
-                    Producto p = d.getProducto();
-                    texto.append("   - ").append(p.getNombre()).append(" | Cantidad: ").append(d.getCantidad()).append(" | Subtotal: $").append(d.calcularTotal()).append("\n");
-                }
+        Panel panelSuperior = new Panel(new FlowLayout(FlowLayout.LEFT));
+        Button btnActualizar = new Button("Actualizar");
+        btnActualizar.addActionListener(e -> actualizarVista());
+        panelSuperior.add(btnActualizar);
+        add(panelSuperior, BorderLayout.NORTH);
 
-                texto.append("Total de solicitud: $").append(s.calcularTotal()).append("\n");
-                texto.append("------------------------------------------------------\n\n");
+        panelSolicitudes = new Panel(new GridLayout(0, 2, 10, 10));
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.add(panelSolicitudes);
+        add(scrollPane, BorderLayout.CENTER);
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                dispose();
             }
+        });
 
-            this.areaSolicitudes.setText(texto.toString());
+        actualizarVista();
+        setVisible(true);
+    }
+    private void agregarCampo(Panel panel, String etiqueta, String valor) {
+        panel.add(new Label(etiqueta));
+        TextField campo = new TextField(valor);
+        campo.setEditable(false);
+        panel.add(campo);
+    }
+
+    private void actualizarVista() {
+        panelSolicitudes.removeAll();
+
+        for (SolicitudDeCompra s : solicitudes) {
+            Panel panel = new Panel(new GridLayout(0, 1, 2, 2));
+            panel.setPreferredSize(new Dimension(350, 250));
+
+            agregarCampo(panel, "Número de Solicitud", s.getNumeroSolicitud());
+            agregarCampo(panel, "Estado", s.getEstado().toString());
+            agregarCampo(panel, "Fecha", formatoFecha.format(s.getFechaSolicitud().getTime()));
+            agregarCampo(panel, "Solicitante", s.getUsuario().getNombre() + " " + s.getUsuario().getApellido());
+            agregarCampo(panel, "Departamento", s.getUsuario().getDepartamento().getNombre());
+            agregarCampo(panel, "Rol", s.getUsuario().getRol().toString());
+            agregarCampo(panel, "Total de la Solicitud", String.valueOf(s.calcularTotal()));
+
+            panelSolicitudes.add(panel);
         }
 
-        this.botonCerrar.addActionListener((e) -> this.dispose());
-        this.addWindowListener(this);
-        this.setSize(600, 450);
-        this.setLocationRelativeTo((Component)null);
-        this.setVisible(true);
+        panelSolicitudes.revalidate();
     }
 
-    public void windowClosing(WindowEvent e) {
-        this.dispose();
-    }
 
-    public void windowOpened(WindowEvent e) {
-    }
-
-    public void windowClosed(WindowEvent e) {
-    }
-
-    public void windowIconified(WindowEvent e) {
-    }
-
-    public void windowDeiconified(WindowEvent e) {
-    }
-
-    public void windowActivated(WindowEvent e) {
-    }
-
-    public void windowDeactivated(WindowEvent e) {
-    }
 }
-

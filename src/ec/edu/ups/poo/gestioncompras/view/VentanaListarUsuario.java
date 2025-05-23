@@ -1,65 +1,74 @@
 package ec.edu.ups.poo.gestioncompras.view;
 
+import ec.edu.ups.poo.gestioncompras.models.Usuario;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
-import ec.edu.ups.poo.gestioncompras.models.Usuario;
 
-public class VentanaListarUsuario extends Frame implements WindowListener {
-    private TextArea areaUsuarios;
-    private Button botonCerrar;
+public class VentanaListarUsuario extends Frame {
+
+    private List<Usuario> usuarios;
+    private Panel panelUsuarios;
 
     public VentanaListarUsuario(List<Usuario> usuarios) {
-        super("Lista de Usuarios");
+        super("Listado de Usuarios");
+        this.usuarios = usuarios;
+
         setLayout(new BorderLayout());
+        setSize(800, 600);
+        setLocationRelativeTo(null);
+        setVisible(true);
 
-        // Área de texto para mostrar los usuarios
-        areaUsuarios = new TextArea();
-        areaUsuarios.setEditable(false);
-        add(areaUsuarios, BorderLayout.CENTER);
+        //panel botón actualizar
+        Panel panelSuperior = new Panel(new FlowLayout(FlowLayout.LEFT));
+        Button btnActualizar = new Button("Actualizar");
+        btnActualizar.addActionListener(e -> actualizarVista());
+        panelSuperior.add(btnActualizar);
+        add(panelSuperior, BorderLayout.NORTH);
 
-        // Panel inferior con botón
-        Panel panelBoton = new Panel(new FlowLayout(FlowLayout.RIGHT));
-        botonCerrar = new Button("Cerrar");
-        panelBoton.add(botonCerrar);
-        add(panelBoton, BorderLayout.SOUTH);
+        //panel usuarios
+        panelUsuarios = new Panel();
+        panelUsuarios.setLayout(new GridLayout(0, 2, 10, 10));
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.add(panelUsuarios);
+        add(scrollPane, BorderLayout.CENTER);
 
-        // Mostrar usuarios en el TextArea
-        if (usuarios.isEmpty()) {
-            areaUsuarios.setText("No existen usuarios registrados.");
-        } else {
-            StringBuilder texto = new StringBuilder();
-            for (Usuario u : usuarios) {
-                texto.append("- ").append(u.getNombre())
-                        .append(" ").append(u.getApellido())
-                        .append(" | ID: ").append(u.getId())
-                        .append(" | Email: ").append(u.getEmail())
-                        .append(" | Teléfono: ").append(u.getTelefono())
-                        .append(" | Rol: ").append(u.getRol())
-                        .append(" | Departamento: ").append(u.getDepartamento().getNombre())
-                        .append("\n\n");
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                dispose();
             }
-            areaUsuarios.setText(texto.toString());
+        });
+
+        actualizarVista();
+
+    }
+    private void agregarCampo(Panel panel, String etiqueta, String valor) {
+        panel.add(new Label(etiqueta));
+        TextField campo = new TextField(valor);
+        campo.setEditable(false);
+        panel.add(campo);
+    }
+    private void actualizarVista() {
+        panelUsuarios.removeAll();
+
+        for (Usuario u : usuarios) {
+            Panel panelUsuario = new Panel(new GridLayout(0, 1, 2, 2));
+            panelUsuario.setPreferredSize(new Dimension(300, 200));
+
+            agregarCampo(panelUsuario, "ID", u.getId());
+            agregarCampo(panelUsuario, "Nombre", u.getNombre());
+            agregarCampo(panelUsuario, "Apellido", u.getApellido());
+            agregarCampo(panelUsuario, "Email", u.getEmail());
+            agregarCampo(panelUsuario, "Teléfono", u.getTelefono());
+            agregarCampo(panelUsuario, "Rol", u.getRol().toString());
+            agregarCampo(panelUsuario, "Departamento", u.getDepartamento().getNombre());
+
+            panelUsuarios.add(panelUsuario);
         }
 
-        // Eventos
-        botonCerrar.addActionListener(e -> dispose());
-        addWindowListener(this);
-
-        setSize(500, 400);
-        setLocationRelativeTo(null); // Centrar ventana
-        setVisible(true);
+        panelUsuarios.revalidate();
     }
 
-    public void windowClosing(WindowEvent e) {
-        dispose();
-    }
 
-    //metodos vacios de WL
-    public void windowOpened(WindowEvent e) {}
-    public void windowClosed(WindowEvent e) {}
-    public void windowIconified(WindowEvent e) {}
-    public void windowDeiconified(WindowEvent e) {}
-    public void windowActivated(WindowEvent e) {}
-    public void windowDeactivated(WindowEvent e) {}
 }
