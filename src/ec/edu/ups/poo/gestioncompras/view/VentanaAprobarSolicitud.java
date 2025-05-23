@@ -1,81 +1,108 @@
 package ec.edu.ups.poo.gestioncompras.view;
 
+import ec.edu.ups.poo.gestioncompras.enums.Rol;
+import ec.edu.ups.poo.gestioncompras.models.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 
-import ec.edu.ups.poo.gestioncompras.enums.Rol;
-import ec.edu.ups.poo.gestioncompras.models.*;
+public class VentanaAprobarSolicitud extends Frame {
 
-public class VentanaAprobarSolicitud extends Frame implements WindowListener {
+    private TextField textNumSolicitud, textNombreEvaluadoar, textCedulaEvaluador, textEstadoFinal;
+    private boolean decisionTomada = false;
+    private boolean aprobarDecision = false;
 
-    private TextField textNumSolicitud, textNombreEval, textCedulaEval, textDecision, texttEstadoFinal;
-    private Button botonBuscar, botonCerrar, botonAprobar;
     private List<SolicitudDeCompra> solicitudes;
     private List<Usuario> usuarios;
 
     public VentanaAprobarSolicitud(List<SolicitudDeCompra> solicitudes, List<Usuario> usuarios) {
-        super("Aprobar/Rechazar solicitud");
+        super("Aprobar/Rechazar Solicitud");
         this.solicitudes = solicitudes;
         this.usuarios = usuarios;
 
         setLayout(new BorderLayout());
-
-        Label titulo = new Label("Aprobar/Rechazar solicitud", Label.CENTER);
-        add(titulo, BorderLayout.NORTH);
-
-        Panel centro = new Panel(new GridLayout(6, 2, 10, 5));
-
-        // Entradas
-        centro.add(new Label("Ingrese el num. de solicitud:"));
-        textNumSolicitud = new TextField();
-        centro.add(textNumSolicitud);
-
-        centro.add(new Label("Desea aprobar la solicitud? (true/false):"));
-        textDecision = new TextField();
-        centro.add(textDecision);
-
-        centro.add(new Label("Solicitud Encontrada")); centro.add(new Label(""));
-
-        centro.add(new Label("Ingrese el nombre del evaluador:"));
-        textNombreEval = new TextField();
-        centro.add(textNombreEval);
-
-        centro.add(new Label("Ingrese la Cédula:"));
-        textCedulaEval = new TextField();
-        centro.add(textCedulaEval);
-
-        centro.add(new Label("Estado de la solicitud:"));
-        texttEstadoFinal = new TextField();
-        texttEstadoFinal.setEditable(false);
-        centro.add(texttEstadoFinal);
-
-        add(centro, BorderLayout.CENTER);
-
-        Panel abajo = new Panel(new FlowLayout(FlowLayout.RIGHT));
-        botonAprobar = new Button("OK");
-        botonAprobar = new Button("Cerrar");
-        abajo.add(botonAprobar);
-        abajo.add(botonAprobar);
-        add(abajo, BorderLayout.SOUTH);
-
-        // Eventos
-        botonAprobar.addActionListener(e -> ejecutarAccion());
-        botonCerrar.addActionListener(e -> dispose());
-        addWindowListener(this);
-
-        setSize(600, 350);
+        setSize(600, 400);
         setLocationRelativeTo(null);
+
+
+        Panel panelCentro = new Panel(new GridLayout(0, 2, 10, 10));
+
+        panelCentro.add(new Label("Número de Solicitud"));
+        textNumSolicitud = new TextField();
+        panelCentro.add(textNumSolicitud);
+
+        panelCentro.add(new Label("Nombre del Evaluador"));
+        textNombreEvaluadoar = new TextField();
+        panelCentro.add(textNombreEvaluadoar);
+
+        panelCentro.add(new Label("Cédula del Evaluador"));
+        textCedulaEvaluador = new TextField();
+        panelCentro.add(textCedulaEvaluador);
+
+        panelCentro.add(new Label("Estado Final de la Solicitud"));
+        textEstadoFinal = new TextField();
+        textEstadoFinal.setEditable(false);
+        panelCentro.add(textEstadoFinal);
+
+        add(panelCentro, BorderLayout.CENTER);
+
+        //panel botones A/R
+        Panel panelDecision = new Panel(new FlowLayout(FlowLayout.CENTER));
+        Button btnAprobar = new Button("Aprobar");
+        Button btnRechazar = new Button("Rechazar");
+
+        btnAprobar.addActionListener(e -> {
+            aprobarDecision = true;
+            decisionTomada = true;
+            textEstadoFinal.setText("Aprobar");
+        });
+
+        btnRechazar.addActionListener(e -> {
+            aprobarDecision = false;
+            decisionTomada = true;
+            textEstadoFinal.setText("Rechazar");
+        });
+
+        panelDecision.add(new Label("Decisión:"));
+        panelDecision.add(btnAprobar);
+        panelDecision.add(btnRechazar);
+
+        add(panelDecision, BorderLayout.NORTH);
+
+
+        Panel panelBotones = new Panel(new FlowLayout(FlowLayout.RIGHT));
+        Button botonConfirmar = new Button("Confirmar");
+        Button botonCerrar = new Button("Cerrar");
+
+        botonConfirmar.addActionListener(e -> ejecutarAccion());
+        botonCerrar.addActionListener(e -> dispose());
+
+        panelBotones.add(botonConfirmar);
+        panelBotones.add(botonCerrar);
+
+        add(panelBotones, BorderLayout.SOUTH);
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                dispose();
+            }
+        });
+
         setVisible(true);
     }
 
     private void ejecutarAccion() {
-        String num = textNumSolicitud.getText().trim();//trim quita los espacios
-        String decision = textDecision.getText().trim().toLowerCase();
-        String nombreEval = textNombreEval.getText().trim();
-        String cedulaEval = textCedulaEval.getText().trim();
+        if (!decisionTomada) {
+            textEstadoFinal.setText("Seleccione aprobar o rechazar.");
+            return;
+        }
 
-        SolicitudDeCompra encontrada = null;//solicitud encontrada
+        String num = textNumSolicitud.getText().trim();
+        String nombreEval = textNombreEvaluadoar.getText().trim();
+        String cedulaEval = textCedulaEvaluador.getText().trim();
+
+        SolicitudDeCompra encontrada = null;
         for (SolicitudDeCompra s : solicitudes) {
             if (s.getNumeroSolicitud().equalsIgnoreCase(num)) {
                 encontrada = s;
@@ -83,42 +110,31 @@ public class VentanaAprobarSolicitud extends Frame implements WindowListener {
             }
         }
 
-        if (encontrada == null) { //o no
-            texttEstadoFinal.setText("No encontrada");
+        if (encontrada == null) {
+            textEstadoFinal.setText("Solicitud no encontrada");
             return;
         }
 
-        Usuario evaluador = null; //existe el usuario
+        Usuario evaluador = null;
         for (Usuario u : usuarios) {
-            if (u.getNombre().equalsIgnoreCase(nombreEval) &&
-                    u.getId().equalsIgnoreCase(cedulaEval)) {
+            if (u.getNombre().equalsIgnoreCase(nombreEval) && u.getId().equalsIgnoreCase(cedulaEval)) {
                 evaluador = u;
                 break;
             }
         }
 
         if (evaluador == null) {
-            texttEstadoFinal.setText("Evaluador no encontrado");
+            textEstadoFinal.setText("Evaluador no encontrado");
             return;
         }
 
-        if (evaluador.getRol() != Rol.JEFE_DE_DEPARTAMENTO || //evaluamos rol
+        if (evaluador.getRol() != Rol.JEFE_DE_DEPARTAMENTO ||
                 evaluador.getDepartamento() != encontrada.getUsuario().getDepartamento()) {
-            texttEstadoFinal.setText("No tiene el permiso");
+            textEstadoFinal.setText("Sin permiso");
             return;
         }
 
-        boolean aprobar = decision.equals("true"); //muestra estado
-        encontrada.aprobarEstado(evaluador, aprobar);
-        texttEstadoFinal.setText(encontrada.getEstado().toString());
+        encontrada.aprobarEstado(evaluador, aprobarDecision);
+        textEstadoFinal.setText("Estado actual: " + encontrada.getEstado());
     }
-
-    public void windowClosing(WindowEvent e) {
-        dispose(); }
-    public void windowOpened(WindowEvent e) {}
-    public void windowClosed(WindowEvent e) {}
-    public void windowIconified(WindowEvent e) {}
-    public void windowDeiconified(WindowEvent e) {}
-    public void windowActivated(WindowEvent e) {}
-    public void windowDeactivated(WindowEvent e) {}
 }

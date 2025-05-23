@@ -1,69 +1,76 @@
 package ec.edu.ups.poo.gestioncompras.view;
 
 import ec.edu.ups.poo.gestioncompras.models.Proveedor;
-import java.awt.BorderLayout;
-import java.awt.Button;
-import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.Panel;
-import java.awt.TextArea;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+
+import java.awt.*;
+import java.awt.event.*;
 import java.util.List;
 
-public class VentanaListarProveedores extends Frame implements WindowListener {
-    private TextArea areaProveedores;
-    private Button botonCerrar;
+public class VentanaListarProveedores extends Frame {
+
+    private List<Proveedor> proveedores;
+    private Panel panelProveedores;
 
     public VentanaListarProveedores(List<Proveedor> proveedores) {
-        super("Listar Proveedores");
-        this.setLayout(new BorderLayout());
-        this.areaProveedores = new TextArea();
-        this.areaProveedores.setEditable(false);
-        this.add(this.areaProveedores, "Center");
-        this.botonCerrar = new Button("Cerrar");
-        Panel panelBoton = new Panel(new FlowLayout(0));
-        panelBoton.add(this.botonCerrar);
-        this.add(panelBoton, "South");
-        if (proveedores.isEmpty()) {
-            this.areaProveedores.setText("No existen proveedores registrados.");
-        } else {
-            StringBuilder texto = new StringBuilder();
+        super("Listado de Proveedores");
+        this.proveedores = proveedores;
 
-            for(Proveedor p : proveedores) {
-                texto.append("- ").append(p.getNombre()).append(" ").append(p.getApellido()).append(" | ID: ").append(p.getId()).append(" | Email: ").append(p.getEmail()).append(" | Teléfono: ").append(p.getTelefono()).append(" | RUC: ").append(p.getRuc()).append(" | Dirección: ").append(p.getDireccion()).append("\n\n");
+        setLayout(new BorderLayout());
+        setSize(800, 600);
+        setLocationRelativeTo(null);
+
+
+        Panel panelSuperior = new Panel(new FlowLayout(FlowLayout.LEFT));
+        Button botonActualizar = new Button("Actualizar");
+        botonActualizar.addActionListener(e -> actualizarVista());
+        panelSuperior.add(botonActualizar);
+        add(panelSuperior, BorderLayout.NORTH);
+
+
+        panelProveedores = new Panel();
+        panelProveedores.setLayout(new GridLayout(0, 2, 10, 10)); // 2 columnas
+        ScrollPane scrollPanel = new ScrollPane();
+        scrollPanel.add(panelProveedores);
+        add(scrollPanel, BorderLayout.CENTER);
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                dispose();
             }
+        });
 
-            this.areaProveedores.setText(texto.toString());
+        actualizarVista(); //carg los datos
+
+        setVisible(true);
+    }
+
+    private void agregarCampo(Panel panel, String etiqueta, String valor) {
+        panel.add(new Label(etiqueta));
+        TextField campo = new TextField(valor);
+        campo.setEditable(false);
+        panel.add(campo);
+    }
+
+    private void actualizarVista() {
+        panelProveedores.removeAll();
+
+        for (Proveedor p : proveedores) {
+            Panel panelProveedor = new Panel(new GridLayout(0, 1, 2, 2));
+            panelProveedor.setPreferredSize(new Dimension(300, 200));
+
+            agregarCampo(panelProveedor, "ID", p.getId());
+            agregarCampo(panelProveedor, "Nombre", p.getNombre());
+            agregarCampo(panelProveedor, "Apellido", p.getApellido());
+            agregarCampo(panelProveedor, "Email", p.getEmail());
+            agregarCampo(panelProveedor, "Teléfono", p.getTelefono());
+            agregarCampo(panelProveedor, "RUC", p.getRuc());
+            agregarCampo(panelProveedor, "Dirección", p.getDireccion());
+
+            panelProveedores.add(panelProveedor);
         }
 
-        this.botonCerrar.addActionListener((e) -> this.dispose());
-        this.addWindowListener(this);
-        this.setSize(500, 400);
-        this.setLocationRelativeTo((Component)null);
-        this.setVisible(true);
+        panelProveedores.revalidate();
     }
 
-    public void windowClosing(WindowEvent e) {
-        this.dispose();
-    }
 
-    public void windowOpened(WindowEvent e) {
-    }
-
-    public void windowClosed(WindowEvent e) {
-    }
-
-    public void windowIconified(WindowEvent e) {
-    }
-
-    public void windowDeiconified(WindowEvent e) {
-    }
-
-    public void windowActivated(WindowEvent e) {
-    }
-
-    public void windowDeactivated(WindowEvent e) {
-    }
 }
