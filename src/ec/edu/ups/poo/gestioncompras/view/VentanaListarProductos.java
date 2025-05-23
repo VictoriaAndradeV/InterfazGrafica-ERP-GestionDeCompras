@@ -1,69 +1,124 @@
 package ec.edu.ups.poo.gestioncompras.view;
-
-import ec.edu.ups.poo.gestioncompras.models.Producto;
-import java.awt.BorderLayout;
-import java.awt.Button;
-import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.Panel;
-import java.awt.TextArea;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import ec.edu.ups.poo.gestioncompras.models.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.List;
 
-public class VentanaListarProductos extends Frame implements WindowListener {
-    private TextArea areaProductos;
-    private Button botonCerrar;
+public class VentanaListarProductos extends Frame {
+
+    private List<Producto> productos;
+    private Panel panelProductos;
+    private String categoriaSeleccionada = "";
+
 
     public VentanaListarProductos(List<Producto> productos) {
-        super("Lista de Productos");
-        this.setLayout(new BorderLayout());
-        this.areaProductos = new TextArea();
-        this.areaProductos.setEditable(false);
-        this.add(this.areaProductos, "Center");
-        Panel panelBoton = new Panel(new FlowLayout(2));
-        this.botonCerrar = new Button("Cerrar");
-        panelBoton.add(this.botonCerrar);
-        this.add(panelBoton, "South");
-        if (productos.isEmpty()) {
-            this.areaProductos.setText("No existen productos registrados.");
-        } else {
-            StringBuilder texto = new StringBuilder();
+        super("Listado de Productos");
+        this.productos = productos;
 
-            for(Producto p : productos) {
-                texto.append("- ").append(p.getId()).append(" | Nombre: ").append(p.getNombre()).append(" | Descripción: ").append(p.getDescripcion()).append(" | Precio: $").append(p.getPrecioUnitario()).append(" | Unidad: ").append(p.getUnidad()).append("\n\n");
+        setLayout(new BorderLayout());
+        setSize(800, 600);
+        setLocationRelativeTo(null);
+
+        Panel panelSuperior = new Panel(new BorderLayout());
+
+        // Botón actualizar
+        Button botonActualizar = new Button("Actualizar");
+        botonActualizar.addActionListener(e -> actualizarVista());
+        panelSuperior.add(botonActualizar, BorderLayout.NORTH);
+
+        Panel panelBotones = new Panel(new FlowLayout());
+
+        Button botonComestibles = new Button("Productos Comestibles");
+        botonComestibles.addActionListener(e -> {
+            categoriaSeleccionada = "comestible";
+            mostrarProductosPorCategoria(categoriaSeleccionada);
+        });
+        panelBotones.add(botonComestibles);
+
+        Button botonLimpieza = new Button("Productos de Limpieza");
+        botonLimpieza.addActionListener(e -> {
+            categoriaSeleccionada = "limpieza";
+            mostrarProductosPorCategoria(categoriaSeleccionada);
+        });
+        panelBotones.add(botonLimpieza);
+
+        Button botonTecnologicos = new Button("Productos Tecnológicos");
+        botonTecnologicos.addActionListener(e -> {
+            categoriaSeleccionada="tecnologico";
+            mostrarProductosPorCategoria(categoriaSeleccionada);
+        });
+        panelBotones.add(botonTecnologicos);
+
+        panelSuperior.add(panelBotones, BorderLayout.SOUTH);
+        add(panelSuperior, BorderLayout.NORTH);
+
+        panelProductos = new Panel();
+        panelProductos.setLayout(new GridLayout(0, 2, 10, 10));
+        add(new ScrollPane().add(panelProductos), BorderLayout.CENTER);
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                dispose();
             }
+        });
 
-            this.areaProductos.setText(texto.toString());
+        setVisible(true);
+    }
+
+    private boolean perteneceACategoria(Producto producto, String categoria) {
+        return switch (categoria.toLowerCase()) {
+            case "comestible" -> producto instanceof ProductoComestible;
+            case "limpieza" -> producto instanceof ProductoLimpieza;
+            case "tecnologico" -> producto instanceof ProductoTecnologico;
+            default -> false;
+        };
+    }
+
+    private void agregarCampo(Panel panel, String etiqueta, String valor) {
+        panel.add(new Label(etiqueta));
+        TextField campo = new TextField(valor);
+        campo.setEditable(false);
+        panel.add(campo);
+    }
+
+
+    private void mostrarProductosPorCategoria(String categoria) {
+        panelProductos.removeAll();
+
+        for (Producto producto : productos) {
+            if (perteneceACategoria(producto,categoria)) {
+                Panel panelProducto = new Panel(new GridLayout(0, 1, 2, 2));
+                panelProducto.setPreferredSize(new Dimension(300, 200));
+
+                agregarCampo(panelProducto, "ID", producto.getId());
+                agregarCampo(panelProducto, "Nombre", producto.getNombre());
+                agregarCampo(panelProducto, "Descripción", producto.getDescripcion());
+                agregarCampo(panelProducto, "Precio Unitario", String.valueOf(producto.getPrecioUnitario()));
+                agregarCampo(panelProducto, "Unidad de Venta", producto.getUnidad().toString());
+
+                if (producto instanceof ProductoComestible) {
+                    ProductoComestible p = (ProductoComestible) producto;
+                    agregarCampo(panelProducto, "Fecha de Caducidad", p.getFechaCaducidad().toString());
+                } else {
+                    agregarCampo(panelProducto, "Fecha de Caducidad", "N/A");
+                }
+
+                panelProductos.add(panelProducto);
+            }
         }
 
-        this.botonCerrar.addActionListener((e) -> this.dispose());
-        this.addWindowListener(this);
-        this.setSize(500, 400);
-        this.setLocationRelativeTo((Component)null);
-        this.setVisible(true);
+        panelProductos.revalidate();
+        panelProductos.repaint();
     }
 
-    public void windowClosing(WindowEvent e) {
-        this.dispose();
-    }
 
-    public void windowOpened(WindowEvent e) {
-    }
 
-    public void windowClosed(WindowEvent e) {
-    }
-
-    public void windowIconified(WindowEvent e) {
-    }
-
-    public void windowDeiconified(WindowEvent e) {
-    }
-
-    public void windowActivated(WindowEvent e) {
-    }
-
-    public void windowDeactivated(WindowEvent e) {
+    private void actualizarVista() {
+        //reutilizable
+        if (!categoriaSeleccionada.isEmpty()) {
+            mostrarProductosPorCategoria(categoriaSeleccionada);
+        } else {
+            System.out.println("No hay categoría seleccionada para actualizar.");
+        }
     }
 }
