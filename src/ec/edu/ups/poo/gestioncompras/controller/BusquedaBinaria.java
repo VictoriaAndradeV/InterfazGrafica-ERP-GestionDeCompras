@@ -10,7 +10,6 @@ public class BusquedaBinaria {
 
     public int buscarProveedorID(List<Proveedor> proveedores, String id) {
 
-
         for (int i = 1; i < proveedores.size(); i++) {
             Proveedor proveedorActual = proveedores.get(i);
             int j = i - 1;
@@ -41,6 +40,43 @@ public class BusquedaBinaria {
             }
         }
         return -1; //no se encontro el id buscado
+    }
+
+    public int buscarProductoID(List<Producto> productos, String id) {
+
+        // Ordenamiento por ID usando inserción
+        for (int i = 1; i < productos.size(); i++) {
+            Producto actual = productos.get(i);
+            int j = i - 1;
+
+            while (j >= 0 && productos.get(j).getId().compareToIgnoreCase(actual.getId()) > 0) {
+                productos.set(j + 1, productos.get(j));
+                j--;
+            }
+            productos.set(j + 1, actual);
+        }
+
+        // Búsqueda binaria por ID
+        int bajo = 0;
+        int alto = productos.size() - 1;
+
+        while (bajo <= alto) {
+            int central = (bajo + alto) / 2;
+            Producto productoCentral = productos.get(central);
+
+            int comparacion = productoCentral.getId().compareToIgnoreCase(id);
+
+            if (comparacion == 0) {
+                return central;
+            }
+            if (comparacion < 0) {
+                bajo = central + 1;
+            } else {
+                alto = central - 1;
+            }
+        }
+
+        return -1; // No encontrado
     }
 
     /*

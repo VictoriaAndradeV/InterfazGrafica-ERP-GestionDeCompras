@@ -35,22 +35,21 @@ public class VentanaPrincipal extends Frame {
         this.contadorDeSolicitudes = contadorDeSolicitudes;
 
         setTitle("Sistema de Compras ERP");
-        setSize(800, 400);
+        setSize(700, 350);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout()); //divide la ventana en norte, sur, este, oeste, centro
 
         Label titulo = new Label("SISTEMA DE GESTION DE COMPRAS ERP", Label.CENTER);
         add(titulo, BorderLayout.NORTH); //agrega la etiqueta a la parte superior de la ventana
 
-        Panel panelBotones = new Panel(new GridLayout(7, 2, 10, 10));
+        Panel panelBotones = new Panel(new GridLayout(6, 2, 12, 12));
         String[] opciones = {
-                "Registrar usuario", "Listar solicitudes de compra",
-                "Registrar proveedor", "Buscar proveedor por ID",
-                "Registrar producto", "Buscar producto por nombre",
-                "Registrar Solicitud de compra", "Buscar solicitud por ID",
-                "Listar usuarios", "Aprobar / Rechazar solicitud de compra",
-                "Listar proveedores", "Costo total por Solicitud",
-                "Listar productos", "Salir"
+                "Registrar usuario", "Listar proveedores",
+                "Registrar proveedor", "Listar productos",
+                "Registrar producto", "Listar solicitudes de compra",
+                "Registrar Solicitud de compra", "Aprobar / Rechazar solicitud de compra",
+                "Listar usuarios", "Costo total por Solicitud",
+                "Salir"
         };
 
         for (String opcion : opciones) {
