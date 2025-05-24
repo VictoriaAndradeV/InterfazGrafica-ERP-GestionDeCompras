@@ -11,6 +11,8 @@ import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 public class RegistrarProducto extends Frame{
@@ -46,10 +48,23 @@ public class RegistrarProducto extends Frame{
             }
         });
 
+        botonLimpieza.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new RegistrarProductoLimpieza(productos);
+            }
+        });
+
         botonTecnologia.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new RegistrarProductoTecnologico(productos);
+            }
+        });
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                dispose();
             }
         });
 

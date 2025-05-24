@@ -2,7 +2,7 @@ package ec.edu.ups.poo.gestioncompras.view;
 
 import ec.edu.ups.poo.gestioncompras.enums.UnidadDeMedida;
 import ec.edu.ups.poo.gestioncompras.models.Producto;
-import ec.edu.ups.poo.gestioncompras.models.ProductoTecnologico;
+import ec.edu.ups.poo.gestioncompras.models.ProductoLimpieza;
 
 import java.awt.Frame;
 import java.awt.TextField;
@@ -20,44 +20,43 @@ import java.awt.event.WindowEvent;
 
 import java.util.List;
 
-public class RegistrarProductoTecnologico extends Frame{
+public class RegistrarProductoLimpieza extends Frame{
 
-    private List<Producto> productoTecnologico;
+    private List<Producto> productoLimpieza;
 
     private TextField campoNombre;
     private TextField campoId;
     private TextField campoDescripcion;
     private TextField campoPrecio;
-    private TextField campoGarantia;
+    private TextField campoVolumen;
 
     private Choice elegirUnidad;
 
     private Button botonRegistrar;
     private Button botonLimpiar;
 
-    public RegistrarProductoTecnologico(List<Producto> productoTecnologico) {
-        this.productoTecnologico = productoTecnologico;
+    public RegistrarProductoLimpieza(List<Producto> productoLimpieza) {
+        this.productoLimpieza = productoLimpieza;
 
-        setTitle("Ventana Registrar Producto Tecnologico");
+        setTitle("Ventana Registrar Producto Limpieza");
         setSize(450, 400);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
 
-        Panel panelCampos = new Panel(new GridLayout(6,2, 15,15 ));
+        Panel panelCampos = new Panel(new GridLayout(6, 2, 10, 15));
 
         campoNombre = new TextField();
         campoId = new TextField();
         campoDescripcion = new TextField();
         campoPrecio = new TextField();
-        campoGarantia = new TextField();
+        campoVolumen = new TextField();
 
         elegirUnidad = new Choice();
-        //se imprimen las unidades de medida mostradas en enums
         for (UnidadDeMedida unidad : UnidadDeMedida.values()) {
             elegirUnidad.add(unidad.name());
         }
 
-        panelCampos.add(new Label("Nombre: "));
+        panelCampos.add(new Label("Nombre:"));
         panelCampos.add(campoNombre);
         panelCampos.add(new Label("ID:"));
         panelCampos.add(campoId);
@@ -65,10 +64,10 @@ public class RegistrarProductoTecnologico extends Frame{
         panelCampos.add(campoDescripcion);
         panelCampos.add(new Label("Precio unitario:"));
         panelCampos.add(campoPrecio);
+        panelCampos.add(new Label("Volumen:"));
+        panelCampos.add(campoVolumen);
         panelCampos.add(new Label("Unidad de medida:"));
         panelCampos.add(elegirUnidad);
-        panelCampos.add(new Label("Garantia en meses:"));
-        panelCampos.add(campoGarantia);
 
         Panel panelBotones = new Panel(new FlowLayout());
         botonRegistrar = new Button("Registrar producto");
@@ -76,11 +75,9 @@ public class RegistrarProductoTecnologico extends Frame{
         botonLimpiar = new Button("Limpiar");
         panelBotones.add(botonLimpiar);
 
-
-        add(new Label("REGISTRAR PRODUCTO TECNOLOGICO", Label.CENTER), BorderLayout.NORTH);
+        add(new Label("REGISTRAR PRODUCTO DE LIMPIEZA", Label.CENTER), BorderLayout.NORTH);
         add(panelCampos, BorderLayout.CENTER);
         add(panelBotones, BorderLayout.SOUTH);
-
 
         botonRegistrar.addActionListener(new ActionListener() {
             @Override
@@ -89,25 +86,25 @@ public class RegistrarProductoTecnologico extends Frame{
                 String nombre = campoNombre.getText().trim();
                 String descripcion = campoDescripcion.getText().trim();
                 String precioTexto = campoPrecio.getText().trim();
-                String garantiaTexto = campoGarantia.getText().trim();
+                String volumenTexto = campoVolumen.getText().trim();
 
                 if (!precioTexto.matches("\\d+(\\.\\d+)?")) {
-                    mostrarMensaje("Precio inválido. Use solo números.");
+                    mostrarMensaje("Precio invalido. Ingrese unicamente numeros");
                     return;
                 }
 
-                if (!garantiaTexto.matches("\\d+")) {
-                    mostrarMensaje("Garantía inválida. Ingrese un número entero de meses.");
+                if (!volumenTexto.matches("\\d+(\\.\\d+)?")) {
+                    mostrarMensaje("Volumen invalido. Ingrese unicamente numeros");
                     return;
                 }
 
                 double precio = Double.parseDouble(precioTexto);
-                int garantia = Integer.parseInt(garantiaTexto);
+                double volumen = Double.parseDouble(volumenTexto);
                 UnidadDeMedida unidad = UnidadDeMedida.valueOf(elegirUnidad.getSelectedItem());
 
-                ProductoTecnologico producto = new ProductoTecnologico(nombre, id, descripcion, precio, unidad, garantia);
-                productoTecnologico.add(producto);
-                mostrarMensaje("Producto tecnológico registrado exitosamente");
+                ProductoLimpieza producto = new ProductoLimpieza(id, nombre, descripcion, precio, unidad, volumen);
+                productoLimpieza.add(producto);
+                mostrarMensaje("Producto de limpieza registrado correctamente.");
             }
         });
 
@@ -124,6 +121,7 @@ public class RegistrarProductoTecnologico extends Frame{
         });
 
         setVisible(true);
+
     }
 
     private void mostrarMensaje(String mensaje) {
@@ -151,8 +149,7 @@ public class RegistrarProductoTecnologico extends Frame{
         campoNombre.setText("");
         campoDescripcion.setText("");
         campoPrecio.setText("");
+        campoVolumen.setText("");
         elegirUnidad.select(0);
-        campoGarantia.setText("");
     }
-
 }

@@ -54,7 +54,9 @@ public class VentanaListarProductos extends Frame {
 
         panelProductos = new Panel();
         panelProductos.setLayout(new GridLayout(0, 2, 10, 10));
-        add(new ScrollPane().add(panelProductos), BorderLayout.CENTER);
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.add(panelProductos);
+        add(scrollPane, BorderLayout.CENTER);
 
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -86,7 +88,7 @@ public class VentanaListarProductos extends Frame {
         panelProductos.removeAll();
 
         for (Producto producto : productos) {
-            if (perteneceACategoria(producto,categoria)) {
+            if (perteneceACategoria(producto, categoria)) {
                 Panel panelProducto = new Panel(new GridLayout(0, 1, 2, 2));
                 panelProducto.setPreferredSize(new Dimension(300, 200));
 
@@ -96,11 +98,14 @@ public class VentanaListarProductos extends Frame {
                 agregarCampo(panelProducto, "Precio Unitario", String.valueOf(producto.getPrecioUnitario()));
                 agregarCampo(panelProducto, "Unidad de Venta", producto.getUnidad().toString());
 
-                if (producto instanceof ProductoComestible) {
-                    ProductoComestible p = (ProductoComestible) producto;
-                    agregarCampo(panelProducto, "Fecha de Caducidad", p.getFechaCaducidad().toString());
-                } else {
-                    agregarCampo(panelProducto, "Fecha de Caducidad", "N/A");
+                if (producto instanceof ProductoComestible p) {
+                    agregarCampo(panelProducto, "Peso", String.valueOf(p.getPeso()));
+                    agregarCampo(panelProducto, "Fecha Elaboración", p.getFechaElaboracion().toString());
+                    agregarCampo(panelProducto, "Fecha Caducidad", p.getFechaCaducidad().toString());
+                } else if (producto instanceof ProductoLimpieza p) {
+                    agregarCampo(panelProducto, "Volumen", String.valueOf(p.getVolumen()));
+                } else if (producto instanceof ProductoTecnologico p) {
+                    agregarCampo(panelProducto, "Garantía (meses)", String.valueOf(p.getGarantiaEnMeses()));
                 }
 
                 panelProductos.add(panelProducto);
