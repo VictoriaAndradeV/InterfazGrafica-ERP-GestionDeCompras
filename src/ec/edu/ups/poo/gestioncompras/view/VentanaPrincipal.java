@@ -98,6 +98,9 @@ public class VentanaPrincipal extends Frame {
             case "Aprobar / Rechazar solicitud de compra":
                 new VentanaAprobarSolicitud(solicitudes, usuarios);
                 break;
+            case "Costo total por Solicitud"    :
+                new VentanaCalcularPrecio(solicitudes);
+                break;
             case "Salir":
                 System.exit(0);
             default:
