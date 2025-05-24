@@ -32,10 +32,16 @@ public class VentanaListarProductos extends Frame {
 
         Panel panelSuperior = new Panel(new BorderLayout());
 
-        // Botón actualizar
+        Panel panelBotonesArriba = new Panel(new FlowLayout(FlowLayout.LEFT));
         Button botonActualizar = new Button("Actualizar");
         botonActualizar.addActionListener(e -> actualizarVista());
-        panelSuperior.add(botonActualizar, BorderLayout.NORTH);
+        panelBotonesArriba.add(botonActualizar);
+
+        Button botonBuscar = new Button("Buscar por ID");
+        botonBuscar.addActionListener(e -> new VentanaBuscarProducto(productos));
+        panelBotonesArriba.add(botonBuscar);
+
+        panelSuperior.add(panelBotonesArriba, BorderLayout.NORTH);
 
         Panel panelBotones = new Panel(new FlowLayout());
 

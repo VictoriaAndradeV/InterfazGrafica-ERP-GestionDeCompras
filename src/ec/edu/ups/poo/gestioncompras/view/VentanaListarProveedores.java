@@ -29,13 +29,17 @@ public class VentanaListarProveedores extends Frame {
         setSize(800, 600);
         setLocationRelativeTo(null);
 
-
         Panel panelSuperior = new Panel(new FlowLayout(FlowLayout.LEFT));
         Button botonActualizar = new Button("Actualizar");
         botonActualizar.addActionListener(e -> actualizarVista());
         panelSuperior.add(botonActualizar);
         add(panelSuperior, BorderLayout.NORTH);
 
+        Button botonBuscar = new Button("Buscar por ID");
+        panelSuperior.add(botonBuscar);
+        botonBuscar.addActionListener(e -> {
+            new VentanaBuscarProveedor(proveedores);
+        });
 
         panelProveedores = new Panel();
         panelProveedores.setLayout(new GridLayout(0, 2, 10, 10)); // 2 columnas
