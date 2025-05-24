@@ -89,7 +89,7 @@ public class VentanaBuscarProveedor extends Frame {
         ventana.setLocationRelativeTo(null);
 
         // Panel de mensajes
-        Panel panelMensajes = new Panel(new GridLayout(0, 1, 5, 5));
+        Panel panelMensajes = new Panel(new GridLayout(0, 1, 15, 15));
         for (String linea : mensaje.split("\n")) {
             panelMensajes.add(new Label(linea));
         }

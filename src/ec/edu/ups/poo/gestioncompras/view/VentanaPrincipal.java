@@ -13,11 +13,8 @@ import java.awt.Frame;
 import java.awt.Button;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.FlowLayout;
 import java.awt.Panel;
 import java.awt.Label;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class VentanaPrincipal extends Frame {
     private  List<Usuario> usuarios;
@@ -103,18 +100,6 @@ public class VentanaPrincipal extends Frame {
                 break;
             case "Salir":
                 System.exit(0);
-            default:
-                Frame nuevaVentana = new Frame(opcion);
-                nuevaVentana.setSize(500, 300);
-                nuevaVentana.setLayout(new FlowLayout());
-                nuevaVentana.add(new Label("Aquí irá la lógica de: " + opcion));
-                nuevaVentana.setVisible(true);
-                nuevaVentana.addWindowListener(new WindowAdapter() {
-                    public void windowClosing(WindowEvent e) {
-                        nuevaVentana.dispose();
-                    }
-                });
-            break;
         }
 
     }

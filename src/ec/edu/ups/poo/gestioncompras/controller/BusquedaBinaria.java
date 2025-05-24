@@ -82,49 +82,40 @@ public class BusquedaBinaria {
     /*
      * Metodo que busca una solicitud por su ID, primero odrdena de forma ascendente y luego busca en la lista
      */
-    public int buscarSolicitudID(List<SolicitudDeCompra> solicitudDeCompras, String id) {
+    public int buscarSolicitudID(List<SolicitudDeCompra> lista, String numeroSolicitud) {
 
-        for (int i = 1; i < solicitudDeCompras.size(); i++) {
-            SolicitudDeCompra pasajero = solicitudDeCompras.get(i);
+        // Ordenar la lista por número de solicitud
+        for (int i = 1; i < lista.size(); i++) {
+            SolicitudDeCompra actual = lista.get(i);
             int j = i - 1;
 
-            while (j >= 0 &&
-                    solicitudDeCompras.get(j).getId() != null &&
-                    pasajero.getId() != null &&
-                    solicitudDeCompras.get(j).getId().compareToIgnoreCase(pasajero.getId()) > 0) {
-                solicitudDeCompras.set(j + 1, solicitudDeCompras.get(j));
+            while (j >= 0 && lista.get(j).getNumeroSolicitud().compareToIgnoreCase(actual.getNumeroSolicitud()) > 0) {
+                lista.set(j + 1, lista.get(j));
                 j--;
             }
-            solicitudDeCompras.set(j + 1, pasajero);
+            lista.set(j + 1, actual);
         }
 
-
-
+        // Búsqueda binaria por número de solicitud
         int bajo = 0;
-        int alto = (solicitudDeCompras.size() - 1);
+        int alto = lista.size() - 1;
 
-        while(bajo <= alto){
+        while (bajo <= alto) {
+            int medio = (bajo + alto) / 2;
+            SolicitudDeCompra central = lista.get(medio);
 
-            int central = (bajo + alto)/2;
-            SolicitudDeCompra solicitudCentral = solicitudDeCompras.get(central);
-
-            String idCentral = solicitudCentral.getId();
-            if (idCentral == null) {
-                return -1;
-            }
-
-            int comparacion = idCentral.compareToIgnoreCase(id);
+            int comparacion = central.getNumeroSolicitud().compareToIgnoreCase(numeroSolicitud);
 
             if (comparacion == 0) {
-                return central;
-            }
-            if (comparacion < 0) {
-                bajo = central + 1;
+                return medio;
+            } else if (comparacion < 0) {
+                bajo = medio + 1;
             } else {
-                alto = central - 1;
+                alto = medio - 1;
             }
         }
-        return 0; //no se encontro el id buscado
+
+        return -1; // No encontrada
     }
 
 

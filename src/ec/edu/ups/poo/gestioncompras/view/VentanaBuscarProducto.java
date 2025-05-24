@@ -2,7 +2,6 @@ package ec.edu.ups.poo.gestioncompras.view;
 
 import ec.edu.ups.poo.gestioncompras.controller.BusquedaBinaria;
 import ec.edu.ups.poo.gestioncompras.models.Producto;
-import ec.edu.ups.poo.gestioncompras.models.Proveedor;
 
 import java.awt.Frame;
 import java.awt.TextField;
@@ -23,12 +22,11 @@ public class VentanaBuscarProducto extends Frame {
     private BusquedaBinaria bBinaria;
 
     public VentanaBuscarProducto(List<Producto> productos) {
-        //super("Buscar Producto por ID");
+        super("Buscar Producto por ID");
         this.productos = productos;
         this.bBinaria = new BusquedaBinaria();
 
         //ventana en donde se ingresa el id del producto a buscar
-        setTitle("Buscar Producto por ID");
         setSize(300, 200);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
