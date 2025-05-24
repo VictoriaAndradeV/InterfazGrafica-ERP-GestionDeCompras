@@ -109,8 +109,8 @@ public class VentanaListarProductos extends Frame {
                 Panel panelProducto = new Panel(new GridLayout(0, 1, 2, 2));
                 panelProducto.setPreferredSize(new Dimension(300, 200));
 
-                agregarCampo(panelProducto, "ID", producto.getId());
-                agregarCampo(panelProducto, "Nombre", producto.getNombre());
+                agregarCampo(panelProducto, "Nombre", producto.getId());
+                agregarCampo(panelProducto, "ID", producto.getNombre());
                 agregarCampo(panelProducto, "Descripción", producto.getDescripcion());
                 agregarCampo(panelProducto, "Precio Unitario", String.valueOf(producto.getPrecioUnitario()));
                 agregarCampo(panelProducto, "Unidad de Venta", producto.getUnidad().toString());
