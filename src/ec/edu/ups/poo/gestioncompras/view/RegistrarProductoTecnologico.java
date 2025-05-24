@@ -34,6 +34,7 @@ public class RegistrarProductoTecnologico extends Frame{
 
     private Button botonRegistrar;
     private Button botonLimpiar;
+    private Button botonSalir;
 
     public RegistrarProductoTecnologico(List<Producto> productoTecnologico) {
         this.productoTecnologico = productoTecnologico;
@@ -75,6 +76,8 @@ public class RegistrarProductoTecnologico extends Frame{
         panelBotones.add(botonRegistrar);
         botonLimpiar = new Button("Limpiar");
         panelBotones.add(botonLimpiar);
+        botonSalir = new Button("Salir");
+        panelBotones.add(botonSalir);
 
 
         add(new Label("REGISTRAR PRODUCTO TECNOLOGICO", Label.CENTER), BorderLayout.NORTH);
@@ -112,14 +115,16 @@ public class RegistrarProductoTecnologico extends Frame{
         });
 
         botonLimpiar.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 limpiarCampos();
             }
         });
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                dispose();
+        botonSalir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Cierra la ventana
             }
         });
 

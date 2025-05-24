@@ -55,7 +55,7 @@ public class Main {
 
         solicitud.agregarDetalle(producto, 3, "Uso interno");
         solicitudes.add(solicitud);
-        new VentanaPrincipal(usuarios, proveedores, solicitudes, productos);
+        new VentanaPrincipal(usuarios, proveedores, solicitudes, productos, contadorDeSolicitudes);
 
 
          /*

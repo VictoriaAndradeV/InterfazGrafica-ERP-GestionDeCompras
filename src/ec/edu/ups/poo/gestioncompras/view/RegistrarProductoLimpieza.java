@@ -34,6 +34,7 @@ public class RegistrarProductoLimpieza extends Frame{
 
     private Button botonRegistrar;
     private Button botonLimpiar;
+    private Button botonSalir;
 
     public RegistrarProductoLimpieza(List<Producto> productoLimpieza) {
         this.productoLimpieza = productoLimpieza;
@@ -74,6 +75,8 @@ public class RegistrarProductoLimpieza extends Frame{
         panelBotones.add(botonRegistrar);
         botonLimpiar = new Button("Limpiar");
         panelBotones.add(botonLimpiar);
+        botonSalir = new Button("Salir");
+        panelBotones.add(botonSalir);
 
         add(new Label("REGISTRAR PRODUCTO DE LIMPIEZA", Label.CENTER), BorderLayout.NORTH);
         add(panelCampos, BorderLayout.CENTER);
@@ -109,19 +112,20 @@ public class RegistrarProductoLimpieza extends Frame{
         });
 
         botonLimpiar.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 limpiarCampos();
             }
         });
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                dispose();
+        botonSalir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Cierra la ventana
             }
         });
 
         setVisible(true);
-
     }
 
     private void mostrarMensaje(String mensaje) {

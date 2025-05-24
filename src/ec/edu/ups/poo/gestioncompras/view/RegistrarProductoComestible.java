@@ -34,8 +34,10 @@ public class RegistrarProductoComestible extends Frame{
     private TextField campoFechaCaducidad;
 
     private Choice elegirUnidad;
+
     private Button botonRegistrar;
     private Button botonLimpiar;
+    private Button botonSalir;
 
     public RegistrarProductoComestible(List<Producto> productoComes) {
         this.productoComes = productoComes;
@@ -83,6 +85,8 @@ public class RegistrarProductoComestible extends Frame{
         panelBotones.add(botonRegistrar);
         botonLimpiar = new Button("Limpiar");
         panelBotones.add(botonLimpiar);
+        botonSalir = new Button("Salir");
+        panelBotones.add(botonSalir);
 
         add(new Label("REGISTRAR PRODUCTO COMESTIBLE", Label.CENTER), BorderLayout.NORTH);
         add(panelCampos, BorderLayout.CENTER);
@@ -135,14 +139,16 @@ public class RegistrarProductoComestible extends Frame{
         });
 
         botonLimpiar.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 limpiarCampos();
             }
         });
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                dispose();
+        botonSalir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Cierra la ventana
             }
         });
 

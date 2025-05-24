@@ -2,8 +2,18 @@ package ec.edu.ups.poo.gestioncompras.view;
 
 import ec.edu.ups.poo.gestioncompras.models.Proveedor;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Frame;
+import java.awt.TextField;
+import java.awt.Button;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
+import java.awt.Panel;
+import java.awt.Label;
+import java.awt.ScrollPane;
+import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 public class VentanaListarProveedores extends Frame {
