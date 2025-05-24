@@ -1,6 +1,5 @@
 package ec.edu.ups.poo.gestioncompras.view;
 
-
 import ec.edu.ups.poo.gestioncompras.models.Producto;
 import ec.edu.ups.poo.gestioncompras.models.SolicitudDeCompra;
 import ec.edu.ups.poo.gestioncompras.models.Usuario;
@@ -17,8 +16,6 @@ import java.awt.Label;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -34,6 +31,7 @@ public class RegistrarSolicitudDeCompra extends Frame {
 
     private Button botonRegistrar;
     private Button botonLimpiar;
+    private Button botonCerrar;
 
     private SolicitudDeCompra nuevaSolicitud;
     private int contador;
@@ -63,10 +61,11 @@ public class RegistrarSolicitudDeCompra extends Frame {
 
         Panel panelBotones = new Panel(new FlowLayout());
         botonRegistrar = new Button("Agregar producto");
-        botonLimpiar = new Button("Limpiar campos");
-
         panelBotones.add(botonRegistrar);
+        botonLimpiar = new Button("Limpiar campos");
         panelBotones.add(botonLimpiar);
+        botonCerrar = new Button("Cerrar");
+        panelBotones.add(botonCerrar);
 
         add(new Label("REGISTRAR SOLICITUD DE COMPRA", Label.CENTER), BorderLayout.NORTH);
         add(panelCampos, BorderLayout.CENTER);
@@ -86,9 +85,10 @@ public class RegistrarSolicitudDeCompra extends Frame {
             }
         });
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                dispose();
+        botonCerrar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Cierra la ventana
             }
         });
 
@@ -145,7 +145,7 @@ public class RegistrarSolicitudDeCompra extends Frame {
     private void finalizarSolicitud() {
         if (nuevaSolicitud != null && !nuevaSolicitud.getDetalleSolicitud().isEmpty()) {
             solicitudes.add(nuevaSolicitud);
-            mostrarMensaje("Solicitud registrada con éxito. Número: " + nuevaSolicitud.getNumeroSolicitud());
+            mostrarMensaje("Solicitud registrada con éxito. ID: " + nuevaSolicitud.getNumeroSolicitud());
             nuevaSolicitud = null;
             contador++;
         } else {
@@ -162,6 +162,7 @@ public class RegistrarSolicitudDeCompra extends Frame {
         Label etiqueta = new Label(mensaje);
         Button cerrar = new Button("Cerrar");
         cerrar.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 mensajeVentana.dispose();
             }
@@ -176,5 +177,9 @@ public class RegistrarSolicitudDeCompra extends Frame {
         campoNombreSolicitante.setText("");
         campoNombreProducto.setText("");
         campoCantidad.setText("");
+    }
+
+    public int getContador() {
+        return contador;
     }
 }

@@ -4,24 +4,35 @@ import ec.edu.ups.poo.gestioncompras.models.Producto;
 import ec.edu.ups.poo.gestioncompras.models.Proveedor;
 import ec.edu.ups.poo.gestioncompras.models.SolicitudDeCompra;
 import ec.edu.ups.poo.gestioncompras.models.Usuario;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Frame;
+import java.awt.Button;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
+import java.awt.Panel;
+import java.awt.Label;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class VentanaPrincipal extends Frame {
     private  List<Usuario> usuarios;
     private  List<Proveedor> proveedores ;
     private  List<SolicitudDeCompra> solicitudes;
     private  List<Producto> productos;
-
+    private int contadorDeSolicitudes;
 
     //constructor ventana principal
-    public VentanaPrincipal(List<Usuario> usuarios,List<Proveedor> proveedores, List<SolicitudDeCompra> solicitudes, List<Producto> productos) {
+    public VentanaPrincipal(List<Usuario> usuarios,List<Proveedor> proveedores, List<SolicitudDeCompra> solicitudes, List<Producto> productos, int contadorDeSolicitudes) {
         this.productos = productos;
         this.usuarios = usuarios;
         this.proveedores = proveedores;
         this.solicitudes = solicitudes;
+        this.contadorDeSolicitudes = contadorDeSolicitudes;
 
         setTitle("Sistema de Compras ERP");
         setSize(800, 400);
@@ -55,12 +66,6 @@ public class VentanaPrincipal extends Frame {
 
         add(panelBotones, BorderLayout.CENTER);
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                dispose();
-            }
-        });
-
         setVisible(true);
     }
 
@@ -77,8 +82,8 @@ public class VentanaPrincipal extends Frame {
                 new RegistrarProducto(productos);
                 break;
             case "Registrar Solicitud de compra":
-                //new RegistrarSolicitudDeCompra(usuarios, productos, solicitudes);
-                break;
+                RegistrarSolicitudDeCompra ventana = new RegistrarSolicitudDeCompra(usuarios, productos, solicitudes, contadorDeSolicitudes);
+                contadorDeSolicitudes = ventana.getContador(); // sincroniza
             case "Listar solicitudes de compra":
                 new VentanaListarSolicitudes(solicitudes);
                 break;

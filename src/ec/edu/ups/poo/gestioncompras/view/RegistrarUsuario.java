@@ -40,6 +40,7 @@ public class RegistrarUsuario extends Frame {
 
     private Button actualizarRegistro;
     private Button limpiarCampos;
+    private Button cerrarVentana;
 
     //constructor que recibe como parametros una lista de usuarios y la guarda para poder agregar nuevos
     public RegistrarUsuario(List<Usuario> usuarios) {
@@ -91,6 +92,8 @@ public class RegistrarUsuario extends Frame {
         panelBotones.add(actualizarRegistro);
         limpiarCampos = new Button("Limpiar campos");
         panelBotones.add(limpiarCampos);
+        cerrarVentana = new Button("Cerrar");
+        panelBotones.add(cerrarVentana);
 
         add(new Label("REGISTRAR NUEVO USUARIO", Label.CENTER), BorderLayout.NORTH);
         add(panelUsuarios, BorderLayout.CENTER);
@@ -132,14 +135,14 @@ public class RegistrarUsuario extends Frame {
             }
         });
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                dispose();
+        cerrarVentana.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Cierra la ventana
             }
         });
 
         setVisible(true);
-
     }
 
     private void mostrarMensaje(String mensaje) {

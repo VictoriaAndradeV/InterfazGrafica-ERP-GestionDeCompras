@@ -1,7 +1,6 @@
 package ec.edu.ups.poo.gestioncompras.view;
 
 import ec.edu.ups.poo.gestioncompras.models.SolicitudDeCompra;
-import ec.edu.ups.poo.gestioncompras.models.DetalleSolicitud;
 
 import java.awt.*;
 import java.awt.event.*;

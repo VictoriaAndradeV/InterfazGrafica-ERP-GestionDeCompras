@@ -30,6 +30,7 @@ public class RegistrarProveedor extends Frame {
 
     private Button botonActualizarRegistro;
     private Button botonLimpiarCampos;
+    private Button botonCerrar;
 
     public RegistrarProveedor(List<Proveedor> proveedores) {
         this.proveedores = proveedores;
@@ -69,6 +70,8 @@ public class RegistrarProveedor extends Frame {
         panelBotones.add(botonActualizarRegistro);
         botonLimpiarCampos = new Button("Limpiar Campos");
         panelBotones.add(botonLimpiarCampos);
+        botonCerrar = new Button("Cerrar");
+        panelBotones.add(botonCerrar);
 
         add(new Label("REGISTRAR NUEVO PROVEEDOR", Label.CENTER), BorderLayout.NORTH);
         add(panelCampoProveedor, BorderLayout.CENTER);
@@ -99,9 +102,10 @@ public class RegistrarProveedor extends Frame {
             }
         });
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                dispose();
+        botonCerrar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Cierra la ventana
             }
         });
 
