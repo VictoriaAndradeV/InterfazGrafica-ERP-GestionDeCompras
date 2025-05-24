@@ -22,9 +22,15 @@ public class VentanaListarSolicitudes extends Frame {
         setLocationRelativeTo(null);
 
         Panel panelSuperior = new Panel(new FlowLayout(FlowLayout.LEFT));
+
         Button btnActualizar = new Button("Actualizar");
         btnActualizar.addActionListener(e -> actualizarVista());
         panelSuperior.add(btnActualizar);
+
+        Button btnBuscar = new Button("Buscar por ID");
+        btnBuscar.addActionListener(e -> new VentanaBuscarSolicitudCompra(solicitudes));
+        panelSuperior.add(btnBuscar);
+
         add(panelSuperior, BorderLayout.NORTH);
 
         panelSolicitudes = new Panel(new GridLayout(0, 2, 10, 10));
