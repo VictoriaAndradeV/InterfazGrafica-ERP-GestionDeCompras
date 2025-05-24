@@ -5,8 +5,8 @@ public class ProductoTecnologico extends Producto {
 
     private int garantiaEnMeses;
 
-    public ProductoTecnologico(String id, String nombre, String descripcion, double precioUnitario, UnidadDeMedida unidad, int garantiaEnMeses) {
-        super(id, nombre, descripcion, precioUnitario, unidad);
+    public ProductoTecnologico(String nombre, String id, String descripcion, double precioUnitario, UnidadDeMedida unidad, int garantiaEnMeses) {
+        super(nombre, id, descripcion, precioUnitario, unidad);
         this.garantiaEnMeses = garantiaEnMeses;
 
     }

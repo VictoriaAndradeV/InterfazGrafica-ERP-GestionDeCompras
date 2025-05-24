@@ -4,8 +4,8 @@ import ec.edu.ups.poo.gestioncompras.enums.UnidadDeMedida;
 public class ProductoLimpieza extends Producto {
     private double volumen; // en litros
 
-    public ProductoLimpieza(String id, String nombre, String descripcion, double precioUnitario, UnidadDeMedida unidad, double volumen) {
-        super(id, nombre, descripcion, precioUnitario, unidad);
+    public ProductoLimpieza(String nombre, String id, String descripcion, double precioUnitario, UnidadDeMedida unidad, double volumen) {
+        super(nombre, id, descripcion, precioUnitario, unidad);
         this.volumen = volumen;
     }
 

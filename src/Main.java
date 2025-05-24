@@ -8,7 +8,6 @@ import ec.edu.ups.poo.gestioncompras.enums.Estado;
 import ec.edu.ups.poo.gestioncompras.models.*;
 import ec.edu.ups.poo.gestioncompras.view.ShowConsole;
 import ec.edu.ups.poo.gestioncompras.controller.BusquedaBinaria;
-import java.util.GregorianCalendar;
 import ec.edu.ups.poo.gestioncompras.enums.Rol;
 import ec.edu.ups.poo.gestioncompras.enums.UnidadDeMedida;
 import ec.edu.ups.poo.gestioncompras.view.VentanaPrincipal;
@@ -39,13 +38,13 @@ public class Main {
         usuarios.add(new Usuario("Luis", "Torres", "1112131415", "luis@mail.com", "0777777777", logistica, Rol.SUPERVISOR));
 
         //productos
-        productos.add(new ProductoComestible("C001", "Manzanas", "Frutas frescas", 1.5, UnidadDeMedida.KILOGRAMOS, 10.0, LocalDate.of(2025, 5, 20), LocalDate.of(2025, 4, 10)));
+        productos.add(new ProductoComestible("C001", "Manzanas", "Frutas frescas", 1.5, UnidadDeMedida.KILOGRAMO, 10.0, LocalDate.of(2025, 5, 20), LocalDate.of(2025, 4, 10)));
 
         productos.add(new ProductoLimpieza("L001", "Detergente", "Detergente líquido", 3.0, UnidadDeMedida.LITRO,2.5));
 
-        productos.add(new ProductoTecnologico("T001", "Laptop", "Laptop gama media", 600.0, UnidadDeMedida.MES, 24));
+        productos.add(new ProductoTecnologico("T001", "Laptop", "Laptop gama media", 600.0, UnidadDeMedida.GRAMO, 24));
 
-        ShowConsole showConsole = new ShowConsole(productos);
+        //ShowConsole showConsole = new ShowConsole(productos);
 
         //solicitud
         Usuario solicitante = usuarios.get(0); // Carlos
@@ -59,6 +58,8 @@ public class Main {
         solicitudes.add(solicitud);
         new VentanaPrincipal(usuarios, proveedores, solicitudes, productos);
 
+
+         /*
         boolean continuar = true;
 
         while (continuar) {
@@ -128,7 +129,7 @@ public class Main {
                     System.out.println("Saliendo del sistema...");
                     break;
             }
-        }
+        }*/
     }
 
     public static void listarSolicitudes() {

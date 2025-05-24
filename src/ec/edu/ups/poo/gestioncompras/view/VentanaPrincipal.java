@@ -4,21 +4,20 @@ import ec.edu.ups.poo.gestioncompras.models.Producto;
 import ec.edu.ups.poo.gestioncompras.models.Proveedor;
 import ec.edu.ups.poo.gestioncompras.models.SolicitudDeCompra;
 import ec.edu.ups.poo.gestioncompras.models.Usuario;
+import java.util.List;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 
 public class VentanaPrincipal extends Frame {
-    private  java.util.List<Usuario> usuarios;
-    private  java.util.List<Proveedor> proveedores ;
-    private  java.util.List<SolicitudDeCompra> solicitudes;
-    private  java.util.List<Producto> productos;
-
+    private  List<Usuario> usuarios;
+    private  List<Proveedor> proveedores ;
+    private  List<SolicitudDeCompra> solicitudes;
+    private  List<Producto> productos;
 
 
     //constructor ventana principal
-    public VentanaPrincipal(java.util.List<Usuario> usuarios,java.util.List<Proveedor> proveedores, java.util.List<SolicitudDeCompra> solicitudes, java.util.List<Producto> productos) {
+    public VentanaPrincipal(List<Usuario> usuarios,List<Proveedor> proveedores, List<SolicitudDeCompra> solicitudes, List<Producto> productos) {
         this.productos = productos;
         this.usuarios = usuarios;
         this.proveedores = proveedores;
@@ -45,7 +44,12 @@ public class VentanaPrincipal extends Frame {
 
         for (String opcion : opciones) {
             Button boton = new Button(opcion);
-            boton.addActionListener(e -> manejarAccion(opcion));
+            String opcionFinal = opcion; // copia local para evitar el error de referencia
+            boton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    manejarAccion(opcionFinal);
+                }
+            });
             panelBotones.add(boton);
         }
 
@@ -64,7 +68,13 @@ public class VentanaPrincipal extends Frame {
     private void manejarAccion(String opcion) {
         switch (opcion) {
             case "Registrar usuario":
-                new RegistrarUsuario();
+                new RegistrarUsuario(usuarios);
+                break;
+            case "Registrar proveedor":
+                new RegistrarProveedor(proveedores);
+                break;
+            case "Registrar producto":
+                new RegistrarProducto(productos);
                 break;
             case "Listar solicitudes de compra":
                 new VentanaListarSolicitudes(solicitudes);
@@ -95,26 +105,6 @@ public class VentanaPrincipal extends Frame {
                     }
                 });
             break;
-
-
-        /*
-        if (opcion.equals("Salir")) {
-            System.exit(0);
-        } else if (opcion.equals("Registrar usuario")) {
-            new RegistrarUsuario();
-
-        } else {
-            Frame nuevaVentana = new Frame(opcion);
-            nuevaVentana.setSize(500, 300);
-            nuevaVentana.setLayout(new FlowLayout());
-            nuevaVentana.add(new Label("Aquí irá la lógica de: " + opcion));
-            nuevaVentana.setVisible(true);
-            nuevaVentana.addWindowListener(new WindowAdapter() {
-                public void windowClosing(WindowEvent e) {
-                    nuevaVentana.dispose();
-                }
-            });
-        }*/
         }
 
     }

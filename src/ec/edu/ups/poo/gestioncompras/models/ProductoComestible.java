@@ -9,13 +9,12 @@ public class ProductoComestible extends Producto {
     private LocalDate fechaCaducidad;
     private LocalDate fechaElaboracion;
 
-    public ProductoComestible(String id, String nombre, String descripcion, double precioUnitario, UnidadDeMedida unidad, double peso, LocalDate fechaCaducidad, LocalDate fechaElaboracion) {
-        super(id, nombre, descripcion, precioUnitario, unidad);
+    public ProductoComestible(String nombre, String id, String descripcion, double precioUnitario, UnidadDeMedida unidad, double peso, LocalDate fechaCaducidad, LocalDate fechaElaboracion) {
+        super(nombre, id, descripcion, precioUnitario, unidad);
         this.peso = peso;
         this.fechaCaducidad = fechaCaducidad;
         this.fechaElaboracion = fechaElaboracion;
     }
-
 
     //solo setters poque no se necesita modificar el codigo ya creado
     public double getPeso() {

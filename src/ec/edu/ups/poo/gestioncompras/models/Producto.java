@@ -2,37 +2,38 @@ package ec.edu.ups.poo.gestioncompras.models;
 import ec.edu.ups.poo.gestioncompras.enums.UnidadDeMedida;
 
 public abstract class Producto {
-    protected String id;
+
     protected String nombre;
+    protected String id;
     protected String descripcion;
     protected double precioUnitario;
     protected UnidadDeMedida unidad;
 
     //constructor
     public Producto() {}
-    public Producto(String id, String nombre, String descripcion,double precioUnitario, UnidadDeMedida unidad) {
-        this.id = id;
+    public Producto(String nombre, String id, String descripcion,double precioUnitario, UnidadDeMedida unidad) {
         this.nombre = nombre;
+        this.id = id;
         this.descripcion = descripcion;
         this.precioUnitario = precioUnitario;
         this.unidad = unidad;
     }
 
     //getters y setters
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getNombre() {
         return nombre;
     }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDescripcion() {
