@@ -24,7 +24,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         //proveedores
         proveedores.add(new Proveedor("Proveedor Uno", "ApellidoUno", "P001", "proveedor1@mail.com", "1234567890", "RUC001", "Av. 10 de Agosto"));
 

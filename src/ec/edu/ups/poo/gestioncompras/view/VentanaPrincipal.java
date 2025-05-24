@@ -76,6 +76,9 @@ public class VentanaPrincipal extends Frame {
             case "Registrar producto":
                 new RegistrarProducto(productos);
                 break;
+            case "Registrar Solicitud de compra":
+                //new RegistrarSolicitudDeCompra(usuarios, productos, solicitudes);
+                break;
             case "Listar solicitudes de compra":
                 new VentanaListarSolicitudes(solicitudes);
                 break;

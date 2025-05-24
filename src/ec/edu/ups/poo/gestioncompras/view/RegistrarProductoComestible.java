@@ -106,7 +106,7 @@ public class RegistrarProductoComestible extends Frame{
                 }
 
                 if (!pesoTexto.matches("\\d+(\\.\\d+)?")) {
-                    mostrarMensaje("Peso invalido. Solo se permiten números.");
+                    mostrarMensaje("Peso invalido. Solo se permiten números");
                     return;
                 }
 
@@ -117,7 +117,7 @@ public class RegistrarProductoComestible extends Frame{
                 }
 
                 if (!fechaCaducidad.matches("\\d{4}-\\d{2}-\\d{2}")) {
-                    mostrarMensaje("Fecha de caducidad inválida. Use el formato AÑo-Mes-Dia.");
+                    mostrarMensaje("Fecha de caducidad invalida. Use el formato AÑo-Mes-Dia.");
                     return;
                 }
 
@@ -150,7 +150,7 @@ public class RegistrarProductoComestible extends Frame{
     }
 
     private void mostrarMensaje(String mensaje) {
-        Frame mensajeVentana = new Frame("Mensaje");
+        Frame mensajeVentana = new Frame("Mensaje error");
         mensajeVentana.setSize(300, 100);
         mensajeVentana.setLayout(new FlowLayout());
         mensajeVentana.setLocationRelativeTo(this);
