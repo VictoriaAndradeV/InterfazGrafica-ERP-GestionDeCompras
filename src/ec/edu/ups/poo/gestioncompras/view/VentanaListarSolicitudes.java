@@ -66,6 +66,7 @@ public class VentanaListarSolicitudes extends Frame {
             agregarCampo(panel, "Estado", s.getEstado().toString());
             agregarCampo(panel, "Fecha", formatoFecha.format(s.getFechaSolicitud().getTime()));
             agregarCampo(panel, "Solicitante", s.getUsuario().getNombre() + " " + s.getUsuario().getApellido());
+            agregarCampo(panel, "Cédula del Solicitante", s.getUsuario().getId());
             agregarCampo(panel, "Departamento", s.getUsuario().getDepartamento().getNombre());
             agregarCampo(panel, "Rol", s.getUsuario().getRol().toString());
             agregarCampo(panel, "Total de la Solicitud", String.valueOf(s.calcularTotal()));
@@ -76,8 +77,6 @@ public class VentanaListarSolicitudes extends Frame {
                 agregarCampo(panel, "Subtotal", String.valueOf(d.calcularTotal()));
                 agregarCampo(panel, "Justificación", d.getJustificacion());
             }
-
-
             panelSolicitudes.add(panel);
         }
 
