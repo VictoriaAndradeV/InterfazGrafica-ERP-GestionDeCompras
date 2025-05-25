@@ -75,6 +75,7 @@ public class VentanaListarUsuario extends Frame {
             agregarCampo(panelUsuario, "Departamento", u.getDepartamento().getNombre());
 
             panelUsuarios.add(panelUsuario);
+            panelUsuario.setPreferredSize(new Dimension(400, 320));
         }
 
         panelUsuarios.revalidate();
