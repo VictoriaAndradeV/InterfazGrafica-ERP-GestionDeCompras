@@ -1,5 +1,6 @@
 package ec.edu.ups.poo.gestioncompras.view;
 
+import ec.edu.ups.poo.gestioncompras.models.DetalleSolicitud;
 import ec.edu.ups.poo.gestioncompras.models.SolicitudDeCompra;
 
 import java.awt.*;
@@ -68,6 +69,14 @@ public class VentanaListarSolicitudes extends Frame {
             agregarCampo(panel, "Departamento", s.getUsuario().getDepartamento().getNombre());
             agregarCampo(panel, "Rol", s.getUsuario().getRol().toString());
             agregarCampo(panel, "Total de la Solicitud", String.valueOf(s.calcularTotal()));
+
+            for (DetalleSolicitud d : s.getDetalleSolicitud()) {
+                agregarCampo(panel, "Producto", d.getProducto().getNombre());
+                agregarCampo(panel, "Cantidad", String.valueOf(d.getCantidad()));
+                agregarCampo(panel, "Subtotal", String.valueOf(d.calcularTotal()));
+                agregarCampo(panel, "Justificación", d.getJustificacion());
+            }
+
 
             panelSolicitudes.add(panel);
         }
