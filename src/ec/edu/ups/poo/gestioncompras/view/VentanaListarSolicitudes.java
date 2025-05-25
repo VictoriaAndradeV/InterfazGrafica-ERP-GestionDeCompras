@@ -60,7 +60,7 @@ public class VentanaListarSolicitudes extends Frame {
 
         for (SolicitudDeCompra s : solicitudes) {
             Panel panel = new Panel(new GridLayout(0, 1, 2, 2));
-            panel.setPreferredSize(new Dimension(350, 250));
+            panel.setPreferredSize(new Dimension(400, 500));
 
             agregarCampo(panel, "Número de Solicitud", s.getNumeroSolicitud());
             agregarCampo(panel, "Estado", s.getEstado().toString());
