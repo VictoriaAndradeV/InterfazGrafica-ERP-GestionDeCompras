@@ -5,16 +5,11 @@ import ec.edu.ups.poo.gestioncompras.models.Proveedor;
 import ec.edu.ups.poo.gestioncompras.models.SolicitudDeCompra;
 import ec.edu.ups.poo.gestioncompras.models.Usuario;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-
-import java.awt.Frame;
-import java.awt.Button;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.awt.Panel;
-import java.awt.Label;
 
 public class VentanaPrincipal extends Frame {
     private  List<Usuario> usuarios;
@@ -46,8 +41,7 @@ public class VentanaPrincipal extends Frame {
                 "Registrar producto", "Listar solicitudes de compra",
                 "Registrar Solicitud de compra", "Aprobar / Rechazar solicitud de compra",
                 "Listar usuarios", "Costo total por Solicitud",
-                "Salir"
-        };
+                        };
 
         for (String opcion : opciones) {
             Button boton = new Button(opcion);
@@ -61,6 +55,13 @@ public class VentanaPrincipal extends Frame {
         }
 
         add(panelBotones, BorderLayout.CENTER);
+
+        Panel panelSalir= new Panel(new FlowLayout(FlowLayout.CENTER));
+        Button botonSalir = new Button("Salir");
+        botonSalir.setPreferredSize(new Dimension(200,40));
+        botonSalir.addActionListener(e -> System.exit(0));
+        panelSalir.add(botonSalir);
+        add(panelSalir, BorderLayout.SOUTH);
 
         setVisible(true);
     }
