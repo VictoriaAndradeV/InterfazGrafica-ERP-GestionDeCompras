@@ -81,6 +81,7 @@ public class VentanaPrincipal extends Frame {
             case "Registrar Solicitud de compra":
                 RegistrarSolicitudDeCompra ventana = new RegistrarSolicitudDeCompra(usuarios, productos, solicitudes, contadorDeSolicitudes);
                 contadorDeSolicitudes = ventana.getContador(); // sincroniza
+                break;
             case "Listar solicitudes de compra":
                 new VentanaListarSolicitudes(solicitudes);
                 break;

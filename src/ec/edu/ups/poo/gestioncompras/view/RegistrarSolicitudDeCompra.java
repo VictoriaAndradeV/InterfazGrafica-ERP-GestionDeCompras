@@ -16,6 +16,8 @@ import java.awt.Label;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class RegistrarSolicitudDeCompra extends Frame {
 
     private Button botonRegistrar;
     private Button botonLimpiar;
-    private Button botonCerrar;
+    private Button botonFinalizar;
 
     private SolicitudDeCompra nuevaSolicitud;
     private int contador;
@@ -64,31 +66,20 @@ public class RegistrarSolicitudDeCompra extends Frame {
         panelBotones.add(botonRegistrar);
         botonLimpiar = new Button("Limpiar campos");
         panelBotones.add(botonLimpiar);
-        botonCerrar = new Button("Cerrar");
-        panelBotones.add(botonCerrar);
+        botonFinalizar = new Button("Finalizar solicitud");
+        panelBotones.add(botonFinalizar);
 
         add(new Label("REGISTRAR SOLICITUD DE COMPRA", Label.CENTER), BorderLayout.NORTH);
         add(panelCampos, BorderLayout.CENTER);
         add(panelBotones, BorderLayout.SOUTH);
 
-        botonRegistrar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                agregarProductoASolicitud();
-            }
-        });
+        botonRegistrar.addActionListener(e -> agregarProductoASolicitud());
+        botonLimpiar.addActionListener(e -> limpiarCampos());
+        botonFinalizar.addActionListener(e -> finalizarSolicitud());
 
-        botonLimpiar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                limpiarCampos();
-            }
-        });
-
-        botonCerrar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // Cierra la ventana
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                dispose();
             }
         });
 
@@ -148,29 +139,27 @@ public class RegistrarSolicitudDeCompra extends Frame {
             mostrarMensaje("Solicitud registrada con éxito. ID: " + nuevaSolicitud.getNumeroSolicitud());
             nuevaSolicitud = null;
             contador++;
+            dispose();
         } else {
             mostrarMensaje("Agregue productos a la solicitud");
+
         }
     }
 
     private void mostrarMensaje(String mensaje) {
-        Frame mensajeVentana = new Frame("Ventana Mensaje");
+        Frame mensajeVentana = new Frame("Mensaje");
         mensajeVentana.setSize(300, 100);
         mensajeVentana.setLayout(new FlowLayout());
         mensajeVentana.setLocationRelativeTo(this);
 
         Label etiqueta = new Label(mensaje);
         Button cerrar = new Button("Cerrar");
-        cerrar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mensajeVentana.dispose();
-            }
-        });
+        cerrar.addActionListener(e -> mensajeVentana.dispose());
 
         mensajeVentana.add(etiqueta);
         mensajeVentana.add(cerrar);
         mensajeVentana.setVisible(true);
+
     }
 
     private void limpiarCampos() {
@@ -180,6 +169,7 @@ public class RegistrarSolicitudDeCompra extends Frame {
     }
 
     public int getContador() {
+
         return contador;
     }
 }
