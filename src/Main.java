@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import ec.edu.ups.poo.gestioncompras.enums.Estado;
 import ec.edu.ups.poo.gestioncompras.models.*;
-import ec.edu.ups.poo.gestioncompras.view.ShowConsole;
+//import ec.edu.ups.poo.gestioncompras.view.ShowConsole;
 import ec.edu.ups.poo.gestioncompras.controller.BusquedaBinaria;
 import ec.edu.ups.poo.gestioncompras.enums.Rol;
 import ec.edu.ups.poo.gestioncompras.enums.UnidadDeMedida;
@@ -19,7 +19,7 @@ public class Main {
     static List<Usuario> usuarios = new ArrayList<>();
     static int contadorDeSolicitudes = 1;
     static List<Producto> productos = new ArrayList<>();
-    static ShowConsole showConsole = new ShowConsole(productos);
+    //static ShowConsole showConsole = new ShowConsole(productos);
     static BusquedaBinaria binaria = new BusquedaBinaria();
 
     public static void main(String[] args) {
@@ -30,18 +30,18 @@ public class Main {
         proveedores.add(new Proveedor("Proveedor Dos", "ApellidoDos", "P002", "proveedor2@mail.com", "0987654321", "RUC002", "Av. Solano"));
 
         //usuarios
-        Departamento logistica = new Departamento("Logística", "D001", 8);
+        Departamento logistica = new Departamento("LOGISTICA", "D001", 8);
 
         usuarios.add(new Usuario("Carlos", "Abad", "0102030405", "carlos@mail.com", "0999999999", logistica, Rol.JEFE_DE_DEPARTAMENTO));
 
         usuarios.add(new Usuario("Luis", "Torres", "1112131415", "luis@mail.com", "0777777777", logistica, Rol.SUPERVISOR));
 
         //productos
-        productos.add(new ProductoComestible("C001", "Manzanas", "Frutas frescas", 1.5, UnidadDeMedida.KILOGRAMO, 10.0, LocalDate.of(2025, 5, 20), LocalDate.of(2025, 4, 10)));
+        productos.add(new ProductoComestible("Manzanas", "C001", "Frutas frescas", 1.5, UnidadDeMedida.KILOGRAMO, 10.0, LocalDate.of(2025, 5, 20), LocalDate.of(2025, 4, 10)));
 
-        productos.add(new ProductoLimpieza("L001", "Detergente", "Detergente líquido", 3.0, UnidadDeMedida.LITRO,2.5));
+        productos.add(new ProductoLimpieza("Detergente", "L001", "Detergente líquido", 3.0, UnidadDeMedida.LITRO,2.5));
 
-        productos.add(new ProductoTecnologico("T001", "Laptop", "Laptop gama media", 600.0, UnidadDeMedida.GRAMO, 24));
+        productos.add(new ProductoTecnologico("Laptop", "T001", "Laptop gama media", 600.0, UnidadDeMedida.GIGABYTES, 24));
 
         //ShowConsole showConsole = new ShowConsole(productos);
 
@@ -128,7 +128,7 @@ public class Main {
                     System.out.println("Saliendo del sistema...");
                     break;
             }
-        }*/
+        }
     }
 
     public static void listarSolicitudes() {
@@ -326,5 +326,7 @@ public class Main {
         boolean aprobar = showConsole.pedirDecisionAprobacion(); //se aprueba o no
 
         solicitudEncontrada.aprobarEstado(evaluador, aprobar); //se llama al metodo de SolicitudDeCompra
+    }*/
+
     }
 }

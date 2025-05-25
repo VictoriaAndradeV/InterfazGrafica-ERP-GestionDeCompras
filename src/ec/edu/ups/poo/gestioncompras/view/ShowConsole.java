@@ -1,4 +1,4 @@
-package ec.edu.ups.poo.gestioncompras.view;
+/*package ec.edu.ups.poo.gestioncompras.view;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -374,4 +374,4 @@ public class ShowConsole {
         return sdf.format(fecha.getTime());
     }
 
-}
+}*/
