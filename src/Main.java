@@ -1,12 +1,10 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
 
-import ec.edu.ups.poo.gestioncompras.enums.Estado;
+
 import ec.edu.ups.poo.gestioncompras.models.*;
-//import ec.edu.ups.poo.gestioncompras.view.ShowConsole;
 import ec.edu.ups.poo.gestioncompras.controller.BusquedaBinaria;
 import ec.edu.ups.poo.gestioncompras.enums.Rol;
 import ec.edu.ups.poo.gestioncompras.enums.UnidadDeMedida;
@@ -17,9 +15,7 @@ public class Main {
     static List<Proveedor> proveedores = new ArrayList<>();
     static List<SolicitudDeCompra> solicitudes = new ArrayList<>();
     static List<Usuario> usuarios = new ArrayList<>();
-    static int contadorDeSolicitudes = 1;
     static List<Producto> productos = new ArrayList<>();
-    //static ShowConsole showConsole = new ShowConsole(productos);
     static BusquedaBinaria binaria = new BusquedaBinaria();
 
     public static void main(String[] args) {
@@ -43,10 +39,8 @@ public class Main {
 
         productos.add(new ProductoTecnologico("Laptop", "T001", "Laptop gama media", 600.0, UnidadDeMedida.GIGABYTES, 24));
 
-        //ShowConsole showConsole = new ShowConsole(productos);
-
         //solicitud
-        Usuario solicitante = usuarios.get(0); // Carlos
+        /*Usuario solicitante = usuarios.get(0); // Carlos
         Producto producto = productos.get(0); // Manzanas
 
         String numeroSolicitud = "SC" + String.format("%03d", contadorDeSolicitudes++);
@@ -54,279 +48,8 @@ public class Main {
         SolicitudDeCompra solicitud = new SolicitudDeCompra(solicitante, fecha, Estado.SOLICITADA, numeroSolicitud);
 
         solicitud.agregarDetalle(producto, 3, "Uso interno");
-        solicitudes.add(solicitud);
-        new VentanaPrincipal(usuarios, proveedores, solicitudes, productos, contadorDeSolicitudes);
-
-
-         /*
-        boolean continuar = true;
-
-        while (continuar) {
-            int opcion = showConsole.showMenu();
-            switch (opcion) {
-                case 1: // agrega usuario a la lista de usuarios
-                    Usuario usuario = showConsole.registrarUsuario();
-                    usuarios.add(usuario);
-                    break;
-                case 2: //Al ingresar un proveedor, se agrega a la lista de proveedores
-                    Proveedor proveedor = showConsole.registrarProveedor();
-                    proveedores.add(proveedor);
-                    break;
-                case 3:
-                    showConsole.registrarProducto();
-                    break;
-                case 4:
-                    registrarSolicitudCompra();
-                    break;
-                case 5: //Muestra los usuarios ingresados
-                    if (usuarios.isEmpty()) {
-                        System.out.println("No existen usuarios registrados");
-                    } else {
-                        for (Usuario u : usuarios) {
-                            System.out.println(u);
-                        }
-                    }
-                    break;
-                case 6: //Muestra la lista de proveedores
-                    if (proveedores.isEmpty()) {
-                        System.out.println("No existen proveedores registrados");
-                    } else {
-                        for (Proveedor pro : proveedores) {
-                            System.out.println(pro);
-                        }
-                    }
-                    break;
-                case 7:
-                    if (productos.isEmpty()) {
-                        System.out.println("No existen productos registrados");
-                    } else {
-                        for (Producto p : productos) {
-                            System.out.println(p);
-                        }
-                    }
-                    break;
-                case 8:
-                    listarSolicitudes();
-                    break;
-                case 9:
-                    buscarProveedorID();
-                    break;
-                case 10:
-                    buscarProductoNombre();
-                    break;
-                case 11:
-                    buscarSolicitudID();
-                    break;
-                case 12:
-                    aprobarRechazarSolicitud();
-                    break;
-                case 13:
-                    calcularTotalSolicitud();
-                    break;
-                case 14:
-                    continuar = false;
-                    System.out.println("Saliendo del sistema...");
-                    break;
-            }
-        }
-    }
-
-    public static void listarSolicitudes() {
-        if (solicitudes.isEmpty()) {
-            System.out.println("No existen solicitudes registradas.");
-        } else {
-            for (SolicitudDeCompra solicitud : solicitudes) {
-                mostrarSolicitudBien(solicitud);
-                System.out.println("\n");
-            }
-        }
-    }
-    public static void buscarProveedorID(){
-        if (proveedores.isEmpty()) {
-            System.out.println("No existen proveedores registrados");
-        } else {
-            String idBuscado = showConsole.iputIDProveedor();
-            int index = binaria.buscarProveedorID(proveedores, idBuscado);
-
-            if (index == 0) {
-                System.out.println("Proveedor encontrado");
-                System.out.println(proveedores.get(index));
-            } else {
-                System.out.println("Proveedor no registrado");
-            }
-        }
-    }
-
-    public static void buscarProductoNombre(){
-        if (productos.isEmpty()) {
-            System.out.println("No existen productos registrados");
-        } else {
-            String nombreBuscado = showConsole.iputNombreProducto();
-            int index = binaria.buscarProductoNombre(productos, nombreBuscado);
-
-            if (index == 0) {
-                System.out.println("Producto encontrado");
-                System.out.println(productos.get(index));
-            } else {
-                System.out.println("Producto no registrado");
-            }
-        }
-    }
-
-    public static void buscarSolicitudID(){
-        if (solicitudes.isEmpty()) {
-            System.out.println("No existen solicitudes de compra");
-        } else {
-            String idBuscado = showConsole.iputIDSolicitud();
-            int index = binaria.buscarSolicitudID(solicitudes, idBuscado);
-
-            if (index >= 0) {
-                System.out.println("Solicitud encontrada");
-                SolicitudDeCompra solicitudEncontrada = solicitudes.get(index);
-                mostrarSolicitudBien(solicitudEncontrada);
-            } else {
-                System.out.println("Solicitud no registrada");
-            }
-        }
-    }
-    public static void mostrarSolicitudBien(SolicitudDeCompra solicitud) {
-        ShowConsole showConsole = new ShowConsole(productos);
-
-        System.out.println("\n======= Detalles de la Solicitud =======");
-        System.out.println("Número de Solicitud: " + solicitud.getNumeroSolicitud());
-        System.out.println("Estado: " + solicitud.getEstado());
-        System.out.println("Fecha de Solicitud: " + showConsole.formatearFecha(solicitud.getFechaSolicitud()));
-
-        System.out.println("\tSolicitante:");
-        System.out.println("Nombre: " + solicitud.getUsuario().getNombre() + " " + solicitud.getUsuario().getApellido());
-        System.out.println("Departamento: " + solicitud.getUsuario().getDepartamento().getNombre());
-        System.out.println("Rol: " + solicitud.getUsuario().getRol());
-
-        System.out.println("\tProductos solicitados:");
-        for (DetalleSolicitud detalle : solicitud.getDetalleSolicitud()) {
-            System.out.println("- Producto: " + detalle.getProducto().getNombre());
-            System.out.println("  Cantidad: " + detalle.getCantidad());
-            System.out.println("  Subtotal: $" + detalle.calcularTotal());
-        }
-
-        System.out.println("\nTotal de la solicitud: $" + solicitud.calcularTotal());
-    }
-
-    public static void registrarSolicitudCompra() {
-        ShowConsole showConsole = new ShowConsole(productos);
-        String nombreSolicitante = showConsole.pedirNombreSolicitante();
-        Usuario usuario = null;
-
-        for (Usuario u : usuarios) {
-            if (u.getNombre().equalsIgnoreCase(nombreSolicitante)) {
-                usuario = u;
-                break;
-            }
-        }
-
-        if (usuario == null) {
-            System.out.println("No existen usuarios registrados");
-            return;
-        }
-
-        // Crear un nuevo número de solicitud
-        String numeroSolicitud = "SC" + String.format("%03d", contadorDeSolicitudes);
-        contadorDeSolicitudes++;
-
-        // Crear nueva solicitud directamente (relación de agregación)
-        GregorianCalendar fecha = new GregorianCalendar();
-        SolicitudDeCompra nuevaSolicitud = new SolicitudDeCompra(usuario, fecha, Estado.SOLICITADA, numeroSolicitud);
-
-        // Agregar productos
-        boolean seguirAgregando = true;
-        while (seguirAgregando) {
-            System.out.println("Ingrese el nombre del producto que desea agregar:");
-            String nombreProducto = scanner.nextLine();
-
-            Producto productoSeleccionado = null;
-            for (Producto p : productos) {
-                if (p.getNombre().equalsIgnoreCase(nombreProducto)) {
-                    productoSeleccionado = p;
-                    break;
-                }
-            }
-
-            if (productoSeleccionado == null) {
-                System.out.println("No se encontró el producto");
-            } else {
-                int cantidad = showConsole.pedirCantidadProducto();
-
-                nuevaSolicitud.agregarDetalle(productoSeleccionado, cantidad, "Justificación no disponible");
-                System.out.println("Producto agregado correctamente a la solicitud.");
-            }
-
-            seguirAgregando = showConsole.deseaAgregarProducto();
-        }
-
-        solicitudes.add(nuevaSolicitud);
-        System.out.println("Solicitud registrada con éxito. número de solicitud: " + numeroSolicitud);
-    }
-
-    public static void calcularTotalSolicitud() {
-        ShowConsole showConsole = new ShowConsole(productos);
-        SolicitudDeCompra solicitudEncontrada = null;
-        String numero = showConsole.pedirNumeroSolicitudCalcular();
-
-        SolicitudDeCompra soicitudEncontrada= null;
-        for(SolicitudDeCompra s : solicitudes) {
-            if (s.getNumeroSolicitud().equalsIgnoreCase(numero)) {
-                solicitudEncontrada = s;
-                break;
-            }
-        }
-
-        if (solicitudEncontrada == null) {
-            showConsole.mostrarSolicitudNoEncontrada();
-            return;
-        }
-
-        double total = solicitudEncontrada.calcularTotal();
-        showConsole.mostrarSolicitud(total);
-    }
-
-    public static void aprobarRechazarSolicitud() {
-        ShowConsole showConsole = new ShowConsole(productos);
-        String numero = showConsole.pedirNumeroSolicitud(); //pedimos numero de solicitud
-
-        SolicitudDeCompra solicitudEncontrada = null;
-        for (SolicitudDeCompra solicitud : solicitudes) {
-            if (solicitud.getNumeroSolicitud().equalsIgnoreCase(numero)) {
-                solicitudEncontrada = solicitud;
-                break;
-            }
-        }
-
-        if (solicitudEncontrada == null) {
-            showConsole.mostrarSolicitudNoEncontrada();
-            return;
-        }
-
-        System.out.println("Ingrese los datos del jefe evaluador:");
-        String nombreEvaluador = scanner.nextLine();
-        System.out.println("Ingrese la cedula del jefe evaluador:");
-        String idEvaluador = scanner.nextLine();
-        Usuario evaluador = null;
-
-        for (Usuario u : usuarios) {
-            if (u.getNombre().equalsIgnoreCase(nombreEvaluador)) {
-                evaluador = u;
-                break;
-            }
-        }
-
-        if (evaluador == null) {
-            System.out.println("No se encontró el jefe evaluador");
-            return;
-        }
-        boolean aprobar = showConsole.pedirDecisionAprobacion(); //se aprueba o no
-
-        solicitudEncontrada.aprobarEstado(evaluador, aprobar); //se llama al metodo de SolicitudDeCompra
-    }*/
+        solicitudes.add(solicitud);*/
+        new VentanaPrincipal(usuarios, proveedores, solicitudes, productos);
 
     }
 }

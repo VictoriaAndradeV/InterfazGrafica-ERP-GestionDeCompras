@@ -14,8 +14,6 @@ import java.awt.FlowLayout;
 import java.awt.Panel;
 import java.awt.Label;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.GregorianCalendar;
@@ -23,6 +21,8 @@ import java.util.List;
 
 public class RegistrarSolicitudDeCompra extends Frame {
 
+    private VentanaPrincipal ventanaPrincipal;
+    private int contador;
     private List<Usuario> usuarios;
     private List<Producto> productos;
     private List<SolicitudDeCompra> solicitudes;
@@ -36,9 +36,9 @@ public class RegistrarSolicitudDeCompra extends Frame {
     private Button botonFinalizar;
 
     private SolicitudDeCompra nuevaSolicitud;
-    private int contador;
 
-    public RegistrarSolicitudDeCompra(List<Usuario> usuarios, List<Producto> productos, List<SolicitudDeCompra> solicitudes, int contador) {
+    public RegistrarSolicitudDeCompra(VentanaPrincipal ventanaPrincipal, List<Usuario> usuarios, List<Producto> productos, List<SolicitudDeCompra> solicitudes, int contador) {
+        this.ventanaPrincipal = ventanaPrincipal;
         this.usuarios = usuarios;
         this.productos = productos;
         this.solicitudes = solicitudes;
@@ -125,8 +125,7 @@ public class RegistrarSolicitudDeCompra extends Frame {
         int cantidad = Integer.parseInt(cantidadTexto);
 
         if (nuevaSolicitud == null) {
-            String numeroSolicitud = "SC" + String.format("%03d", contador);
-            nuevaSolicitud = new SolicitudDeCompra(usuario, new GregorianCalendar(), Estado.SOLICITADA, numeroSolicitud);
+            nuevaSolicitud = new SolicitudDeCompra(usuario, new GregorianCalendar(), Estado.SOLICITADA, ""); // número se define luego
         }
 
         nuevaSolicitud.agregarDetalle(producto, cantidad, "Justificación no disponible");
@@ -134,16 +133,22 @@ public class RegistrarSolicitudDeCompra extends Frame {
     }
 
     private void finalizarSolicitud() {
-        if (nuevaSolicitud != null && !nuevaSolicitud.getDetalleSolicitud().isEmpty()) {
-            solicitudes.add(nuevaSolicitud);
-            mostrarMensaje("Solicitud registrada con éxito. ID: " + nuevaSolicitud.getNumeroSolicitud());
-            nuevaSolicitud = null;
-            contador++;
-            dispose();
-        } else {
+        if (nuevaSolicitud == null || nuevaSolicitud.getDetalleSolicitud().isEmpty()) {
             mostrarMensaje("Agregue productos a la solicitud");
-
+            return;
         }
+
+        // Generar número nuevo con el contador actual
+        String numeroSolicitud = "SC" + String.format("%03d", contador);
+        nuevaSolicitud.setNumeroSolicitud(numeroSolicitud);
+
+        solicitudes.add(nuevaSolicitud);
+        mostrarMensaje("Solicitud registrada con éxito. ID: " + numeroSolicitud);
+
+        contador++;
+        ventanaPrincipal.setContador(contador);
+        nuevaSolicitud = null;
+        dispose();
     }
 
     private void mostrarMensaje(String mensaje) {
@@ -168,8 +173,4 @@ public class RegistrarSolicitudDeCompra extends Frame {
         campoCantidad.setText("");
     }
 
-    public int getContador() {
-
-        return contador;
-    }
 }

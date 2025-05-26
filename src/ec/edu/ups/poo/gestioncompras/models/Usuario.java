@@ -7,7 +7,6 @@ public class Usuario extends Contacto {
     private Departamento departamento;
     private Rol rol;
 
-
     public Usuario(String nombre, String apellido, String id, String email, String telefono, Departamento departamento, Rol rol) {
         super(nombre, apellido, id, email, telefono); //atributos de contacto
         this.departamento = departamento;
@@ -29,7 +28,6 @@ public class Usuario extends Contacto {
     public void setRol(Rol rol) {
         this.rol = rol;
     }
-
 
     @Override
     public String toString() {

@@ -61,6 +61,7 @@ public class RegistrarUsuario extends Frame {
 
         //nos permite seleccionar entre varios departamentos
         elegirDepartamento = new Choice();
+        elegirDepartamento.add("GERENCIA");
         elegirDepartamento.add("COMPRAS");
         elegirDepartamento.add("LOGISTICA");
         elegirDepartamento.add("SISTEMAS");

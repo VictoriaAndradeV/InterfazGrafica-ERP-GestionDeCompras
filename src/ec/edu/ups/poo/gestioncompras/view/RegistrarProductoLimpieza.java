@@ -15,8 +15,6 @@ import java.awt.Panel;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import java.util.List;
 
@@ -105,7 +103,7 @@ public class RegistrarProductoLimpieza extends Frame{
                 double volumen = Double.parseDouble(volumenTexto);
                 UnidadDeMedida unidad = UnidadDeMedida.valueOf(elegirUnidad.getSelectedItem());
 
-                ProductoLimpieza producto = new ProductoLimpieza(id, nombre, descripcion, precio, unidad, volumen);
+                ProductoLimpieza producto = new ProductoLimpieza(nombre, id, descripcion, precio, unidad, volumen);
                 productoLimpieza.add(producto);
                 mostrarMensaje("Producto de limpieza registrado correctamente.");
             }
