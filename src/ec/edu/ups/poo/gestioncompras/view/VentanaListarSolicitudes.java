@@ -3,10 +3,21 @@ package ec.edu.ups.poo.gestioncompras.view;
 import ec.edu.ups.poo.gestioncompras.models.DetalleSolicitud;
 import ec.edu.ups.poo.gestioncompras.models.SolicitudDeCompra;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.text.SimpleDateFormat;
+import java.awt.Frame;
+import java.awt.TextField;
+import java.awt.Button;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
+import java.awt.Panel;
+import java.awt.Label;
+import java.awt.Dimension;
+import java.awt.ScrollPane;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
+import java.text.SimpleDateFormat;
+
 
 public class VentanaListarSolicitudes extends Frame {
 

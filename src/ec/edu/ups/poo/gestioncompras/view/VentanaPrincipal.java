@@ -5,7 +5,14 @@ import ec.edu.ups.poo.gestioncompras.models.Proveedor;
 import ec.edu.ups.poo.gestioncompras.models.SolicitudDeCompra;
 import ec.edu.ups.poo.gestioncompras.models.Usuario;
 
-import java.awt.*;
+import java.awt.Frame;
+import java.awt.Button;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
+import java.awt.Dimension;
+import java.awt.Panel;
+import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;

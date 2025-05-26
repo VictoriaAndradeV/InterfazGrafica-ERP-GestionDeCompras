@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
 import ec.edu.ups.poo.gestioncompras.models.*;
 import ec.edu.ups.poo.gestioncompras.controller.BusquedaBinaria;
 import ec.edu.ups.poo.gestioncompras.enums.Rol;
@@ -39,16 +38,6 @@ public class Main {
 
         productos.add(new ProductoTecnologico("Laptop", "T001", "Laptop gama media", 600.0, UnidadDeMedida.GIGABYTES, 24));
 
-        //solicitud
-        /*Usuario solicitante = usuarios.get(0); // Carlos
-        Producto producto = productos.get(0); // Manzanas
-
-        String numeroSolicitud = "SC" + String.format("%03d", contadorDeSolicitudes++);
-        GregorianCalendar fecha = new GregorianCalendar();
-        SolicitudDeCompra solicitud = new SolicitudDeCompra(solicitante, fecha, Estado.SOLICITADA, numeroSolicitud);
-
-        solicitud.agregarDetalle(producto, 3, "Uso interno");
-        solicitudes.add(solicitud);*/
         new VentanaPrincipal(usuarios, proveedores, solicitudes, productos);
 
     }

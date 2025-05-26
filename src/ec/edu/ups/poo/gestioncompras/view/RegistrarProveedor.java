@@ -37,6 +37,7 @@ public class RegistrarProveedor extends Frame {
         setTitle("Ventana Registrar Proveedor");
         setSize(500, 500);
         setLayout(new BorderLayout());
+        setLocationRelativeTo(null);
 
         Panel panelCampoProveedor = new Panel(new GridLayout(8, 2, 10, 10));
         campoNombre = new TextField();
