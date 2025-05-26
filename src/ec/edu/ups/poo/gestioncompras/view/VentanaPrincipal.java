@@ -5,7 +5,6 @@ import ec.edu.ups.poo.gestioncompras.models.Proveedor;
 import ec.edu.ups.poo.gestioncompras.models.SolicitudDeCompra;
 import ec.edu.ups.poo.gestioncompras.models.Usuario;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,15 +15,15 @@ public class VentanaPrincipal extends Frame {
     private  List<Proveedor> proveedores ;
     private  List<SolicitudDeCompra> solicitudes;
     private  List<Producto> productos;
-    private int contadorDeSolicitudes;
+    private int contadorDeSolicitudes = 1;
 
     //constructor ventana principal
-    public VentanaPrincipal(List<Usuario> usuarios,List<Proveedor> proveedores, List<SolicitudDeCompra> solicitudes, List<Producto> productos, int contadorDeSolicitudes) {
+    public VentanaPrincipal(List<Usuario> usuarios,List<Proveedor> proveedores, List<SolicitudDeCompra> solicitudes, List<Producto> productos) {
         this.productos = productos;
         this.usuarios = usuarios;
         this.proveedores = proveedores;
         this.solicitudes = solicitudes;
-        this.contadorDeSolicitudes = contadorDeSolicitudes;
+
 
         setTitle("Sistema de Compras ERP");
         setSize(700, 350);
@@ -78,9 +77,9 @@ public class VentanaPrincipal extends Frame {
             case "Registrar producto":
                 new RegistrarProducto(productos);
                 break;
+
             case "Registrar Solicitud de compra":
-                RegistrarSolicitudDeCompra ventana = new RegistrarSolicitudDeCompra(usuarios, productos, solicitudes, contadorDeSolicitudes);
-                contadorDeSolicitudes = ventana.getContador(); // sincroniza
+                new RegistrarSolicitudDeCompra(this, usuarios, productos, solicitudes, contadorDeSolicitudes);
                 break;
             case "Listar solicitudes de compra":
                 new VentanaListarSolicitudes(solicitudes);
@@ -104,5 +103,9 @@ public class VentanaPrincipal extends Frame {
                 System.exit(0);
         }
 
+    }
+
+    public void setContador(int nuevoContador) {
+        this.contadorDeSolicitudes = nuevoContador;
     }
 }

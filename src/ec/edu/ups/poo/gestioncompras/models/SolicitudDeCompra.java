@@ -29,8 +29,8 @@ public class SolicitudDeCompra implements Calculable{
         this.detalleSolicitud = new ArrayList<>();
     }
 
-    public void setNumeroSolicitud(String numeroSolicitud) {
-        this.numeroSolicitud = numeroSolicitud;
+    public void setNumeroSolicitud(String numero) {
+        this.numeroSolicitud = numero;
     }
 
     public String getNumeroSolicitud() {
