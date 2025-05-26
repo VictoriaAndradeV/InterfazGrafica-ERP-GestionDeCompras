@@ -1,32 +1,45 @@
-#📌 Información General
+# 📌 Información General
 
 Título: Creación de interfaces gráficas de usuario basada en prototipado
+
 Asignatura: Programación Orientada a Objetos
+
 Práctica: 4
+
 Carrera: Computación
-Estudiante: [Tu nombre]
+
+Estudiante: Isabel Ullauri y Victoria Andrade
+
 Fecha: 25/05/2025
+
 Profesor: Gabriel Alejandro León Paredes
 
-##📐 Prototipo de interfaz
+## 📐 Prototipo de interfaz
 
-El diseño previo de la interfaz fue elaborado como guía para construir las ventanas principales del sistema, siguiendo una estructura clara y funcional. Se representó de forma visual en papel y se replicó en código usando los componentes de AWT.
+El diseño previo de la interfaz fue elaborado como guía para construir las ventanas principales del sistema, siguiendo una estructura clara y funcional. Se representó de mediante la aplicacion Figma.
+https://www.figma.com/design/HQWEdckxKma9bW2JzA8r2q/Prototipo-gestion-de-compras?node-id=0-1&t=4p4ASbRYduY3NnfF-1
 
-##🎯 Objetivo
+## Explicacion del Programa En Youtube
+https://youtu.be/pJuMlYIr_i4
+
+
+## 🎯 Objetivo
 
 Implementar una interfaz gráfica de usuario para un sistema de gestión de compras previamente desarrollado mediante programación estructurada, utilizando exclusivamente componentes de la biblioteca AWT en Java.
 
 El objetivo es facilitar el registro, organización y control de productos, proveedores y solicitudes de compra dentro de una empresa, integrando la lógica orientada a objetos con una interfaz visual simple y funcional.
 
-##⚙️ Tecnologías y conceptos aplicados
+## ⚙️ Conceptos aplicados
 - Java (AWT)
 - Programación orientada a objetos
 - Componentes gráficos: Frame, Panel, Label, TextField, Button, ScrollPane
 - Layouts: GridLayout, BorderLayout, FlowLayout
-- Listas dinámicas (List<T>)
 - Bucles for-each, estructuras if, switch
 
-##🖼️ Interfaz general del sistema
+## 🧪Incialización del Programa
+El programa se inicializa ejecutando la clase `Main`, la cual carga listas de datos predefinidos y luego abre la ventana principal del sistema mediante la clase VentanaPrincipal, desde donde el usuario puede acceder a todas las funciones del sistema de gestión de compras.
+
+## 🖼️ Interfaz general del sistema
 
 Ventanas principales:
 - VentanaPrincipal: Menú inicial con botones de acceso a cada funcionalidad. Organización en GridLayout de dos columnas, con botón “Salir” centrado y ancho completo.
@@ -37,19 +50,12 @@ Ventanas principales:
 - Ventanas de registro y listado para Usuario, Proveedor y Producto, cada una con estructura clara y compatible con la lógica orientada a objetos.
 
 
-##🧪 Resultados obtenidos
-Se desarrolló una interfaz gráfica funcional, clara y basada en el prototipo inicial. Se solucionaron problemas visuales como el amontonamiento de contenido mediante el uso correcto de ScrollPane y layouts verticales. Además, se integró correctamente la lógica del sistema ERP con las ventanas gráficas, mejorando la experiencia del usuario al evitar errores comunes (como el ingreso de texto en campos booleanos). Las listas se actualizan dinámicamente, y se permitió la entrada de múltiples productos por solicitud.
+## 🧪 Resultados obtenidos
+Se desarrolló una interfaz funcional y clara que refleja el prototipo inicial. El sistema permite gestionar usuarios, productos, proveedores y solicitudes de compra. Los usuarios pueden registrar y visualizar información, así como aprobar o rechazar solicitudes según su rol. Se resolvieron problemas de visualización, mediante el uso de scroll, y también se facilitó un poco el uso del programa haciendo uso de componentes como Choice para hacer elecciones como por ejemplo de Departamento de un usuario. Además, se logró una integración del sistema en código, mejorando la experiencia del usuario al simplificar las entradas y evitar errores comunes.
 
-##✅ Recomendaciones
-- Usar GridLayout(0, 1) en listados para evitar que se compriman los elementos al aumentar la cantidad de datos.
+## ✅ Recomendaciones
+- Usar GridLayout(0, 1) en listados para evitar que se amontonen los elementos al aumentar la cantidad de datos.
 - Separar bien la lógica de negocio de la vista para mantener una arquitectura clara.
 - Utilizar setPreferredSize() en los paneles que actúan como tarjetas para mantener una visualización uniforme.
 - Validar los datos ingresados desde la interfaz para evitar excepciones o errores.
 
-
-
-file_path = "/mnt/data/README_InterfazGrafica.txt"
-with open(file_path, "w", encoding="utf-8") as f:
-    f.write(readme_content)
-
-file_path
